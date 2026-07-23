@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://styris.duetweb-dev.dev/sitemap-index.xml
