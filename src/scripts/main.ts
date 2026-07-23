@@ -228,23 +228,38 @@ if (form) {
     nextBtn.classList.add('is-submitting');
     nextBtn.disabled = true;
 
-    // Payload for a future backend hookup — logged for now.
     const data: Record<string, string> = {};
     steps.forEach((s) => {
       const input = stepInput(s);
       if (input && s.dataset.key) data[s.dataset.key] = input.value.trim();
     });
-    // eslint-disable-next-line no-console
-    console.info('[contact] submitting', data);
 
-    // Simulate network delay so the transition feels intentional.
-    await new Promise((r) => window.setTimeout(r, prefersReducedMotion ? 100 : 650));
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
 
-    nextBtn.classList.remove('is-submitting');
-    nextBtn.disabled = false;
+      if (!res.ok) {
+        const err = await res.json().catch(() => null);
+        throw new Error(err?.error || 'Nepodarilo sa odoslať správu.');
+      }
 
-    // Redirect to thank-you page
-    window.location.href = '/dakujeme';
+      window.location.href = '/dakujeme';
+    } catch (e) {
+      nextBtn.classList.remove('is-submitting');
+      nextBtn.disabled = false;
+      const last = steps[index];
+      if (last) {
+        const errEl = last.querySelector<HTMLElement>('[data-error]');
+        if (errEl) {
+          errEl.textContent =
+            e instanceof Error ? e.message : 'Niečo sa pokazilo. Skúste to znova.';
+          errEl.hidden = false;
+        }
+      }
+    }
   };
 
   const advance = async () => {
