@@ -9,8 +9,8 @@ interface Props {
 }
 
 const {
-  title = 'Styris — Kovové konštrukcie na mieru',
-  description = 'Ručná výroba kovových brán, schodísk, zábradlí a pergol na mieru pre rodinné domy v Košickom kraji. 3D vizualizácia a technické výkresy zadarmo.',
+  title = 'Styris — Kovovýroba na mieru',
+  description = 'Navrhneme, vyrobíme a osadíme kovové schody, brány, zábradlia a pergoly na mieru. Oceľ, nerez aj hliník — vlastná dielňa, Košice a celé Slovensko. Ozveme sa do 48 hodín.',
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://styris.sk').href;
@@ -49,8 +49,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://styris.sk')
         '@type': 'HomeAndConstructionBusiness',
         name: 'Styris',
         description,
-        areaServed: 'Košický kraj, Slovensko',
-        telephone: '+421902876543',
+        areaServed: 'Slovensko',
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Košice',
+          addressCountry: 'SK',
+        },
+        telephone: '+421940896866',
         email: 'info@styris.sk',
         url: canonical,
       })}

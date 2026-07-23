@@ -25,15 +25,15 @@ export const projects: Project[] = [
       'Vjezdové brány, chodníkové brány, oplotenie pozemku. Jednokrídlové, dvojkrídlové, posuvné — v akomkoľvek štýle.',
     tagline: 'Vstup, ktorý reprezentuje váš dom',
     intro:
-      'Ručne vyrábané kovové brány a oplotenie na mieru — od klasickej kutej estetiky po čistý moderný dizajn. Riešime celý proces od zamerania cez 3D vizualizáciu až po montáž.',
+      'Ručne vyrábané kovové brány a oplotenie na mieru — od klasickej kutej estetiky po čistý moderný dizajn. Riešime celý proces od zamerania cez návrh až po montáž.',
     description:
-      'Brána je prvá vec, ktorú návštevník uvidí. U nás dostanete konštrukciu, ktorá je zároveň pekná aj poctivá — nosné rámy z uzavretých profilov, výplne podľa vášho vkusu, povrchové úpravy odolné voči korózii aj UV žiareniu. Pri väčších realizáciách navrhujeme aj automatický pohon a integráciu s domácou automatizáciou.',
+      'Brána je prvá vec, ktorú návštevník uvidí. U nás dostanete konštrukciu, ktorá je zároveň pekná aj poctivá — nosné rámy z uzavretých profilov, výplne podľa vášho vkusu a povrchové úpravy odolné voči korózii aj UV žiareniu. Pri väčších realizáciách dodávame aj elektrický pohon.',
     features: [
-      'Jednokrídlové, dvojkrídlové a posuvné brány s automatikou',
-      'Oplotenie pozemku vrátane stĺpikov, podhrabových dosiek a montáže',
-      'Zinkovanie a komaxit v akejkoľvek RAL farbe',
-      'Integrácia videozvončeka, DTMF prijímača alebo GSM modulu',
-      '5-ročná záruka na konštrukciu a povrchovú úpravu',
+      'Jednokrídlové, dvojkrídlové a posuvné brány',
+      'Elektrický pohon NICE vrátane inštalácie',
+      'Oplotenie pozemku — stĺpiky, výplne a montáž',
+      'Povrchová úprava: zinkovanie a komaxit v ľubovoľnej RAL farbe',
+      'Možnosť prepojenia s balíkoboxom',
     ],
     materials: ['Konštrukčná oceľ S235', 'Žiarovo zinkovaná oceľ', 'Nerez AISI 304 / 316', 'Hliníkové výplne'],
     useCases: [
@@ -43,9 +43,9 @@ export const projects: Project[] = [
       'Obnovy a rekonštrukcie historických plotov',
     ],
     faq: [
-      { q: 'Ako dlho trvá výroba brány?', a: 'Od zamerania po montáž zvyčajne 4–6 týždňov, v závislosti od zložitosti povrchovej úpravy.' },
-      { q: 'Robíte aj montáž pohonu?', a: 'Áno, dodávame a inštalujeme pohony Nice, CAME a BFT vrátane elektroinštalácie a zaučenia.' },
-      { q: 'Aká je záruka?', a: '5 rokov na konštrukciu, 2 roky na pohon a elektroniku podľa podmienok výrobcu.' },
+      { q: 'Ako dlho trvá výroba brány?', a: 'Od zamerania po montáž zvyčajne 4–6 týždňov, v závislosti od zložitosti a povrchovej úpravy.' },
+      { q: 'Robíte aj montáž pohonu?', a: 'Áno, dodávame a inštalujeme pohony NICE vrátane elektroinštalácie a zaučenia.' },
+      { q: 'Aká je záruka?', a: 'Nedávame papierovú záruku, ale staviame veci tak, aby prežili dom. Ak sa niečo pokazí našou chybou alebo chybou výroby, opravíme to zdarma.' },
     ],
     icon: '<rect x="3" y="3" width="7" height="18" rx="1"></rect><rect x="14" y="3" width="7" height="18" rx="1"></rect>',
     imageLabel: 'kovové brány',
@@ -60,10 +60,10 @@ export const projects: Project[] = [
     intro:
       'Priamočiare, točité alebo lomené schodiská z ocele — samostatne nosné, kombinované s drevom, sklom alebo pohľadovým betónom. Každý stupeň je navrhnutý s rezervou na nosnosť a s ohľadom na akustiku.',
     description:
-      'Robíme statické výpočty, výrobné výkresy aj vizualizáciu, aby ste presne vedeli, čo dostanete. Zvárané spoje sú brúsené do R-0 kvality, konzoly a schodnice sú v celku, bez tolerancií, ktoré by na hotovom schodisku bolo vidieť. Pri kombinovaných schodiskách spolupracujeme s truhlármi a sklármi, aby ste dostali jedného partnera pre celý projekt.',
+      'Pripravíme technický návrh a výrobné výkresy, aby ste presne vedeli, čo dostanete. Zvárané spoje sú brúsené do čistej kvality, konzoly a schodnice sú v celku, bez tolerancií, ktoré by na hotovom schodisku bolo vidieť. Pri kombinovaných schodiskách spolupracujeme s truhlármi a sklármi, aby ste mali jedného partnera pre celý projekt.',
     features: [
-      'Statický výpočet a výrobné výkresy v cene',
-      '3D vizualizácia priestoru pred výrobou',
+      'Technický návrh a výrobné výkresy',
+      '3D vizualizácia po odsúhlasení ceny, ešte pred výrobou',
       'Priame, U-schody, L-schody, točité a špirálové varianty',
       'Kombinácia oceľ + dub, jaseň, sklo VSG, pohľadový betón',
       'LED osvetlenie stupňov a zábradlia integrované do konštrukcie',
@@ -91,11 +91,11 @@ export const projects: Project[] = [
     intro:
       'Zábradlia sú miesto, kde najviac vidno, či remeselník vie, čo robí. Pracujeme s milimetrovou presnosťou, brúsime spoje, kotvíme do stavby cez chemické kotvy — aby madlo pod rukou vydržalo desaťročia.',
     description:
-      'Ponúkame celý spektrum od minimalistických sklo-nerez systémov cez klasické kované zábradlia až po interiérové kombinácie s masívnym dubom. Vždy počítame silu vodorovnej záťaže podľa normy a certifikujeme kotvenie. Madlá sú brúsené aj kartáčované, s prehľadom optimálne pre uchopenie ruky.',
+      'Ponúkame celé spektrum od minimalistických sklo-nerez systémov cez klasické kované zábradlia až po interiérové kombinácie s masívnym dubom. Navrhujeme s ohľadom na bežné normy pre vodorovné zaťaženie a poctivo kotvíme do nosnej konštrukcie. Madlá sú brúsené aj kartáčované, optimálne pre uchopenie ruky.',
     features: [
       'Sklenené výplne z VSG bezpečnostného skla',
       'Nerez brúsený, leštený alebo čierny mat',
-      'Statický výpočet a certifikácia kotvenia',
+      'Poctivé kotvenie do nosnej konštrukcie',
       'Interiérové drevené madlá s kovovou dušou',
       'Antikorózna úprava pre exteriér',
     ],
@@ -107,7 +107,7 @@ export const projects: Project[] = [
       'Verejné priestory — kaviarne, hotely, ordinácie',
     ],
     faq: [
-      { q: 'Vyhoviete norme STN 74 3305?', a: 'Áno, každé zábradlie navrhujeme minimálne s výškou 1000 mm a s odolnosťou na vodorovnú silu 1 kN/m.' },
+      { q: 'Podľa akých zásad navrhujete zábradlia?', a: 'Držíme sa bežných zásad — výška zábradlia minimálne 1000 mm a dôraz na pevné kotvenie. Ak je pri projekte potrebná oficiálna certifikácia, vieme ju doriešiť cez partnerov.' },
       { q: 'Robíte aj madlá do panelákov?', a: 'Áno, aj v spolupráci so správcami bytových domov — vieme riešiť aj kotvenie do pórobetónu.' },
     ],
     icon: '<line x1="2" y1="12" x2="22" y2="12"></line><line x1="6" y1="12" x2="6" y2="20"></line><line x1="12" y1="12" x2="12" y2="20"></line><line x1="18" y1="12" x2="18" y2="20"></line><line x1="2" y1="20" x2="22" y2="20"></line>',
@@ -122,12 +122,12 @@ export const projects: Project[] = [
     intro:
       'Bioklimatické aj klasické pergoly s pevnou strechou z oceľových profilov, zinkované a farbené do RAL odtieňov. Konštruujeme ich tak, aby zvládli sneh aj vietor — a vyzerali čisto aj po desiatich rokoch.',
     description:
-      'Pri každej pergole robíme statický výpočet zaťaženia snehom (region IV Východ = 1.5 kN/m²) a vetrom. Odvodňujeme cez integrované žľaby v stĺpikoch, aby po fasáde netieklo. Ako výplne používame bezpečnostné sklo, polykarbonát alebo lamely s ovládaním na diaľku.',
+      'Pergoly navrhujeme s výraznou rezervou na sneh aj vietor, aby držali roky. Odvodňujeme cez integrované žľaby v stĺpikoch, aby po fasáde netieklo. Ako výplne používame bezpečnostné sklo, polykarbonát alebo lamely s ovládaním na diaľku.',
     features: [
-      'Statický výpočet pre snehové a veterné zaťaženie',
+      'Navrhnuté s rezervou na snehové a veterné zaťaženie',
       'Bioklimatické lamely s motorom a dažďovým senzorom',
       'Integrované odvodnenie cez stĺpiky',
-      'LED osvetlenie a vyhrievanie v cene',
+      'LED osvetlenie a vyhrievanie na želanie',
       'Bočné screen rolety a sklenené steny',
     ],
     materials: ['Konštrukčná oceľ + komaxit', 'Hliníkové lamely', 'Bezpečnostné sklo VSG', 'Polykarbonát Makrolon'],
@@ -138,7 +138,7 @@ export const projects: Project[] = [
       'Záhradné pergoly s pnúcimi rastlinami',
     ],
     faq: [
-      { q: 'Zvládne pergola sneh na východe?', a: 'Áno, počítame na 1.5 kN/m² a bežne dodávame konštrukcie s rezervou 2 kN/m².' },
+      { q: 'Zvládne pergola sneh na východe?', a: 'Áno — pergoly navrhujeme s výraznou rezervou na snehové aj veterné zaťaženie pre naše podmienky.' },
       { q: 'Musím riešiť stavebné povolenie?', a: 'Pri pergolách do 25 m² zvyčajne stačí ohláška, väčšie riešime individuálne s obcou.' },
     ],
     icon: '<path d="M3 7h18"></path><path d="M3 7v14"></path><path d="M21 7v14"></path><path d="M6 3v4"></path><path d="M18 3v4"></path><path d="M8 7v14"></path><path d="M16 7v14"></path>',
@@ -170,28 +170,28 @@ export const projects: Project[] = [
     ],
     faq: [
       { q: 'Vyrobíte jeden kus?', a: 'Áno, väčšina zákaziek v tejto kategórii je jednorazová — počítame s tým.' },
-      { q: 'Robíte aj lasering?', a: 'Áno, máme vlastný CNC laser do 8 mm ocele a 5 mm nerezu.' },
+      { q: 'Robíte aj laserové rezanie?', a: 'Laserové rezanie riešime cez nášho dodávateľa — dodáme presné rezané diely z ocele aj nerezu.' },
     ],
     icon: '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>',
     imageLabel: 'kovové doplnky',
   },
   {
     slug: 'priemyselne-konstrukcie',
-    title: 'Priemyselné konštrukcie',
-    category: 'Priemysel',
+    title: 'Veľké a atypické konštrukcie',
+    category: 'Väčšie konštrukcie',
     short:
-      'Oceľové haly, technologické plošiny, potrubné mosty a nosné rámy pre výrobné prevádzky.',
-    tagline: 'Nosné konštrukcie, na ktorých stojí vaša výroba',
+      'Väčšie oceľové konštrukcie na mieru — nosné rámy, plošiny, prístrešky a atypické zvárané celky.',
+    tagline: 'Keď treba niečo väčšie a poriadne nosné',
     intro:
-      'Pre firmy a menšie prevádzky navrhujeme a vyrábame priemyselné oceľové konštrukcie — od plošín a schodísk pre technológiu až po celé haly. Vlastný statik, vlastná dielňa, jeden dodávateľ od projektu po montáž.',
+      'Zvládneme aj väčšie a nosné konštrukcie — nosné rámy, plošiny, prístrešky či atypické zvárané celky. Máme vlastného projektanta a všetko vyrábame vo vlastnej dielni. Ak si zákazka vyžaduje oficiálne normy alebo certifikáciu, vieme ich doriešiť cez overených partnerov.',
     description:
-      'Pracujeme pre potravinárov, strojárov aj menšie výrobné prevádzky. Riešime plošiny na stroje, obslužné lávky, priemyselné schodiská s roštovými stupňami, aj kompletné nosné rámy hál do 500 m². Zvary certifikujeme podľa EN 1090-2, dokumentáciu odovzdávame v štruktúrovanej forme pre kolaudáciu.',
+      'Pracujeme aj na väčších zákazkách — plošiny, obslužné lávky, schodiská s roštovými stupňami aj nosné rámy. Návrh pripravíme s vlastným projektantom. Tam, kde treba oficiálne normy, certifikáciu zvarov alebo statický posudok s pečiatkou, zabezpečíme ich cez overených partnerov. Nesľubujeme papiere, ktoré nevieme podložiť — sľubujeme poctivú prácu, ktorá vydrží.',
     features: [
-      'Certifikácia zvarov podľa EN 1090-2 EXC2',
-      'Statický výpočet a výrobná dokumentácia',
+      'Nosné rámy, plošiny, prístrešky a atypické zvárané celky',
+      'Návrh a výrobná dokumentácia s vlastným projektantom',
       'Roštové stupne a plošiny s protišmykom',
-      'Antikorózne úpravy vhodné pre potravinárstvo',
-      'Montáž s vlastnou technikou po celom Východe',
+      'Antikorózne povrchové úpravy podľa prostredia',
+      'Normy a certifikáciu doriešime na požiadanie cez partnerov',
     ],
     materials: ['Konštrukčná oceľ S235 a S355', 'Nerez potravinársky', 'Žiarovo zinkovaná oceľ', 'Podlahové rošty'],
     useCases: [
@@ -201,8 +201,8 @@ export const projects: Project[] = [
       'Prístrešky nad rampami a manipulačnými plochami',
     ],
     faq: [
-      { q: 'Máte certifikáciu EN 1090?', a: 'Áno, sme certifikovaní na výrobu nosných oceľových konštrukcií v triede EXC2.' },
-      { q: 'Robíte aj projekty pod kľúč?', a: 'Áno, od geodetického zamerania cez statiku a výrobu až po montáž a kolaudačnú dokumentáciu.' },
+      { q: 'Máte certifikáciu EN 1090?', a: 'Vo vlastnej réžii nie sme oficiálne certifikovaní na EN 1090. Ak zákazka vyžaduje certifikát zvarov alebo statický posudok s pečiatkou, zabezpečíme ich cez overených partnerov.' },
+      { q: 'Robíte aj projekty pod kľúč?', a: 'Áno — od zamerania cez návrh a výrobu až po montáž. Časti, ktoré si vyžadujú oficiálne oprávnenie, doriešime s partnermi.' },
     ],
     icon: '<rect x="3" y="3" width="18" height="18" rx="1"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="3" y1="15" x2="21" y2="15"></line><line x1="9" y1="3" x2="9" y2="21"></line><line x1="15" y1="3" x2="15" y2="21"></line>',
     imageLabel: 'priemyselné konštrukcie',

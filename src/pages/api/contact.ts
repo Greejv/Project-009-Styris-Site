@@ -125,7 +125,7 @@ body { margin: 0; padding: 0; width: 100% !important; min-width: 100% !important
 <!-- Subheading -->
 <tr>
 <td align="center" style="padding:12px 40px 0 40px;font-family:${FONT_STACK};font-size:16px;line-height:26px;color:${TEXT_SECONDARY};" class="mobile-pad">
-Vašu správu ohľadom <strong style="color:${TEXT_PRIMARY};">${safeType}</strong> sme úspešne prijali. Náš tím ju práve posudzuje a&nbsp;ozveme sa vám <strong style="color:${TEXT_PRIMARY};">do 24 hodín</strong>.
+Vašu správu ohľadom <strong style="color:${TEXT_PRIMARY};">${safeType}</strong> sme úspešne prijali. Náš tím ju práve posudzuje a&nbsp;ozveme sa vám <strong style="color:${TEXT_PRIMARY};">do 48 hodín</strong>.
 </td>
 </tr>
 
@@ -184,7 +184,7 @@ Vašu správu ohľadom <strong style="color:${TEXT_PRIMARY};">${safeType}</stron
 </td>
 <td valign="top" style="padding:4px 0 4px 12px;">
 <p style="margin:0;font-family:${FONT_STACK};font-size:15px;font-weight:600;line-height:20px;color:${TEXT_PRIMARY};">Pripravíme ponuku</p>
-<p style="margin:4px 0 0 0;font-family:${FONT_STACK};font-size:14px;line-height:20px;color:${TEXT_SECONDARY};">Dostanete cenovú ponuku vrátane 3D vizualizácie.</p>
+<p style="margin:4px 0 0 0;font-family:${FONT_STACK};font-size:14px;line-height:20px;color:${TEXT_SECONDARY};">Pošleme návrh riešenia a orientačnú cenu. 3D vizualizáciu pripravíme až po odsúhlasení ceny.</p>
 </td>
 </tr>
 
@@ -234,7 +234,7 @@ Vašu správu ohľadom <strong style="color:${TEXT_PRIMARY};">${safeType}</stron
 </tr>
 <tr>
 <td align="center" style="padding-top:6px;font-family:${FONT_STACK};font-size:13px;line-height:20px;color:${TEXT_MUTED};">
-Košická 18, 044 14 Čaňa &bull; <a href="tel:+421940498866" style="color:${TEXT_MUTED};text-decoration:none;">+421 940 498 866</a>
+Košice · celé Slovensko &bull; <a href="tel:+421940896866" style="color:${TEXT_MUTED};text-decoration:none;">+421 940 896 866</a>
 </td>
 </tr>
 <tr>
@@ -567,7 +567,7 @@ export const POST: APIRoute = async ({ request }) => {
         To: [{ Email: trimmedEmail, Name: trimmedName }],
         Subject: 'Ďakujeme za vašu správu — Styris',
         HTMLPart: userHtml,
-        TextPart: `Dobrý deň ${trimmedName},\n\nďakujeme za vašu správu ohľadom "${trimmedType}". Prijali sme ju a ozveme sa vám do 24 hodín.\n\nS pozdravom,\nTím Styris\ninfo@styris.sk | +421 940 498 866\nstyris.sk`,
+        TextPart: `Dobrý deň ${trimmedName},\n\nďakujeme za vašu správu ohľadom "${trimmedType}". Prijali sme ju a ozveme sa vám do 48 hodín s návrhom riešenia a orientačnou cenou.\n\nS pozdravom,\nTím Styris\ninfo@styris.sk | +421 940 896 866\nstyris.sk`,
       },
       ...adminEmails.map((adminEmail: string) => ({
         From: { Email: fromEmail, Name: 'Styris — Kontaktný formulár' },
