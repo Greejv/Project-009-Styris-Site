@@ -3,6 +3,7 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "framework": "astro",
+  "alias": ["styris.sk"],
   "cleanUrls": true,
   "trailingSlash": false,
   "headers": [

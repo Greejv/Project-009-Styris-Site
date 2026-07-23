@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+
+const title = 'Kontakt — napíšte nám o vašom projekte | Styris';
+const description =
+  'Kontaktujte Styris pre bezplatnú konzultáciu, 3D vizualizáciu a cenovú ponuku na kovové konštrukcie na mieru. Odpovieme do 24 hodín.';
+---
+
+<Layout title={title} description={description}>
+  <Nav />
+  <main class="contact-main">
+    <Contact />
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  import '../scripts/main.ts';
+</script>

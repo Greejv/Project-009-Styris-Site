@@ -7,7 +7,6 @@ import Services from '../components/Services.astro';
 import Process from '../components/Process.astro';
 import Quality from '../components/Quality.astro';
 import Materials from '../components/Materials.astro';
-import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
 ---
 
@@ -20,7 +19,18 @@ import Footer from '../components/Footer.astro';
     <Process />
     <Quality />
     <Materials />
-    <Contact />
+    <section class="section-dark" id="contact">
+      <div class="container">
+        <div class="work-cta-bottom reveal">
+          <h3>Máte na mysli projekt?</h3>
+          <p>Bezplatná konzultácia, 3D vizualizácia a cenová ponuka — všetko zadarmo pred podpisom. Napíšte nám a ozveme sa do 24 hodín.</p>
+          <a href="/kontakt" class="btn btn-primary work-contact-btn">
+            Napísať nám o projekte
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+        </div>
+      </div>
+    </section>
   </main>
   <Footer />
 </Layout>

@@ -1,8 +1,10 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
 import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
 import { projects } from '../../data/projects';
+import { cardImage, videoPoster } from '../../data/projectImages';
 
 const title = 'Naše práce — realizované projekty | Styris';
 const description =
@@ -36,26 +38,61 @@ const description =
     <section class="work-grid-section">
       <div class="container">
         <div class="work-grid">
-          {projects.map((p) => (
-            <a href={`/prace/${p.slug}`} class="work-card reveal" aria-label={`Prípadová štúdia: ${p.title}`}>
-              <div class="work-card-img img-ph" data-label={p.imageLabel}></div>
-              <div class="work-card-body">
-                <p class="work-card-cat">{p.category}</p>
-                <h2>{p.title}</h2>
-                <p>{p.short}</p>
-                <span class="work-card-cta">
-                  Zobraziť projekt
-                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                </span>
-              </div>
-            </a>
-          ))}
+          {projects.map((p) => {
+            const img = cardImage[p.slug];
+            return (
+              <a href={`/prace/${p.slug}`} class="work-card reveal" aria-label={`Prípadová štúdia: ${p.title}`}>
+                <div class="work-card-img">
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    width={900}
+                    height={Math.round((900 * img.src.height) / img.src.width)}
+                    widths={[400, 640, 900]}
+                    sizes="(max-width: 900px) 100vw, 33vw"
+                    loading="lazy"
+                  />
+                </div>
+                <div class="work-card-body">
+                  <p class="work-card-cat">{p.category}</p>
+                  <h2>{p.title}</h2>
+                  <p>{p.short}</p>
+                  <span class="work-card-cta">
+                    Zobraziť projekt
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </span>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+
+        <div class="work-video reveal" data-video-block>
+          <div class="work-video-poster">
+            <Image
+              src={videoPoster}
+              alt="Náhľad videa: B-roll našich prác"
+              width={1400}
+              height={Math.round((1400 * videoPoster.height) / videoPoster.width)}
+              widths={[640, 960, 1400]}
+              sizes="(max-width: 900px) 100vw, 1100px"
+              loading="lazy"
+            />
+            <button type="button" class="work-video-play" data-video-play aria-label="Prehrať video">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="6 4 20 12 6 20 6 4" fill="currentColor"></polygon></svg>
+            </button>
+            <div class="work-video-copy">
+              <p class="label-bold">Video</p>
+              <h3>Ako to vyzerá v realite</h3>
+              <p>Krátky prierez nedávnymi realizáciami — brány, schody, zábradlia a pergoly z posledných mesiacov.</p>
+            </div>
+          </div>
         </div>
 
         <div class="work-cta-bottom reveal">
           <h3>Máte na mysli niečo iné?</h3>
           <p>Ak to ide urobiť z ocele, urobíme to. Napíšte nám aj neobvyklý projekt — radi si sadneme a povieme, čo je reálne.</p>
-          <a href="/#contact" class="btn btn-primary work-contact-btn">
+          <a href="/kontakt" class="btn btn-primary work-contact-btn">
             Napísať nám o projekte
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
           </a>

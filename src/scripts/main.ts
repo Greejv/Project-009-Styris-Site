@@ -107,6 +107,24 @@ document.querySelectorAll<HTMLAnchorElement>('a[href*="#"]').forEach((a) => {
   });
 });
 
+/* ── Click-to-play video (lazy-load — video only fetched on user click) ── */
+document.querySelectorAll<HTMLElement>('[data-video-block]').forEach((block) => {
+  const poster = block.querySelector<HTMLElement>('.work-video-poster');
+  const playBtn = block.querySelector<HTMLButtonElement>('[data-video-play]');
+  if (!poster || !playBtn) return;
+  playBtn.addEventListener('click', () => {
+    if (poster.querySelector('video')) return;
+    const video = document.createElement('video');
+    video.src = '/videos/B-roll_of_products.mp4';
+    video.controls = true;
+    video.autoplay = true;
+    video.playsInline = true;
+    video.preload = 'auto';
+    poster.appendChild(video);
+    poster.classList.add('is-playing');
+  });
+});
+
 /* ── Contact form — step-by-step stepper ── */
 const form = document.getElementById('contact-form') as HTMLFormElement | null;
 if (form) {

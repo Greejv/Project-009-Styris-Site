@@ -1,8 +1,10 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
 import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
 import { projects } from '../../data/projects';
+import { cardImage, showcaseImage } from '../../data/projectImages';
 
 export function getStaticPaths() {
   return projects.map((p) => ({ params: { slug: p.slug }, props: { project: p } }));
@@ -10,6 +12,7 @@ export function getStaticPaths() {
 
 const { project } = Astro.props;
 const related = projects.filter((p) => p.slug !== project.slug).slice(0, 3);
+const hero = showcaseImage[project.slug];
 
 const title = `${project.title} — prípadová štúdia | Styris`;
 const description = `${project.tagline}. ${project.intro}`;
@@ -71,7 +74,7 @@ const faqJsonLd = project.faq.length
         <p class="cs-intro reveal">{project.intro}</p>
 
         <div class="cs-cta-row reveal">
-          <a href="/#contact" class="btn btn-primary">
+          <a href="/kontakt" class="btn btn-primary">
             Chcem takýto projekt
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
           </a>
@@ -85,7 +88,18 @@ const faqJsonLd = project.faq.length
 
     <section class="cs-showcase">
       <div class="container">
-        <div class="cs-showcase-img img-ph reveal" data-label={project.imageLabel}></div>
+        <div class="cs-showcase-img reveal">
+          <Image
+            src={hero.src}
+            alt={hero.alt}
+            width={1440}
+            height={Math.round((1440 * hero.src.height) / hero.src.width)}
+            widths={[720, 1080, 1440]}
+            sizes="(max-width: 900px) 100vw, 1200px"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </div>
       </div>
     </section>
 
@@ -152,7 +166,7 @@ const faqJsonLd = project.faq.length
           <div class="cs-side-card cs-cta-card reveal">
             <h3>Radi vám poradíme</h3>
             <p>Bezplatná konzultácia, 3D vizualizácia a cenová ponuka — všetko zadarmo pred podpisom.</p>
-            <a href="/#contact" class="btn btn-primary">Napísať nám</a>
+            <a href="/kontakt" class="btn btn-primary">Napísať nám</a>
             <p class="cs-cta-phone">
               alebo zavolajte <a href="tel:+421940498866">+421 940 498 866</a>
             </p>
@@ -168,9 +182,21 @@ const faqJsonLd = project.faq.length
           <h2>Pozrite si aj</h2>
         </div>
         <div class="cs-related-grid">
-          {related.map((p) => (
+          {related.map((p) => {
+            const relImg = cardImage[p.slug];
+            return (
             <a href={`/prace/${p.slug}`} class="cs-related-card reveal">
-              <div class="cs-related-img img-ph" data-label={p.imageLabel}></div>
+              <div class="cs-related-img">
+                <Image
+                  src={relImg.src}
+                  alt={relImg.alt}
+                  width={640}
+                  height={Math.round((640 * relImg.src.height) / relImg.src.width)}
+                  widths={[320, 480, 640]}
+                  sizes="(max-width: 900px) 100vw, 33vw"
+                  loading="lazy"
+                />
+              </div>
               <div class="cs-related-body">
                 <p class="cs-related-cat">{p.category}</p>
                 <h3>{p.title}</h3>
@@ -180,7 +206,8 @@ const faqJsonLd = project.faq.length
                 </span>
               </div>
             </a>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

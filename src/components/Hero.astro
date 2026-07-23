@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
-import imgLeft from '../assets/images/_DSC6262.jpg';
-import imgRight from '../assets/images/_DSC6299.jpg';
+import imgLeft from '../assets/products/biele_schody_1.webp';
+import imgRight from '../assets/products/Biele_Zabradlie_1.webp';
 ---
 
 <section class="hero" id="hero">
@@ -9,26 +9,27 @@ import imgRight from '../assets/images/_DSC6299.jpg';
     <div class="hero-split-img">
       <Image
         src={imgLeft}
-        alt="Interiérové kovové schodisko na mieru"
+        alt="Ručne vyrobené interiérové kovové schodisko na mieru"
         width={1280}
         height={Math.round((1280 * imgLeft.height) / imgLeft.width)}
         widths={[640, 960, 1280]}
         sizes="(max-width: 900px) 100vw, 50vw"
         loading="eager"
         fetchpriority="high"
-        style="transform: scale(1.15) scaleX(-1); object-position: left center;"
+        style="object-position: center 30%;"
       />
     </div>
     <div class="hero-split-img">
       <Image
         src={imgRight}
-        alt="Kované oceľové zábradlie"
+        alt="Elegantné kovové zábradlie od Styris"
         width={1280}
         height={Math.round((1280 * imgRight.height) / imgRight.width)}
         widths={[640, 960, 1280]}
         sizes="(max-width: 900px) 100vw, 50vw"
         loading="eager"
         fetchpriority="high"
+        style="object-position: center 40%;"
       />
     </div>
   </div>

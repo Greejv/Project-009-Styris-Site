@@ -1,14 +1,15 @@
 ---
+import { Image } from 'astro:assets';
 import { projects } from '../data/projects';
+import { cardImage } from '../data/projectImages';
 
 // The homepage services grid uses the 5 primary categories in the design's bento layout.
 const cardOrder = ['kovove-brany-a-ploty', 'schodiska-na-mieru', 'zabradlia-a-madla', 'pergoly-a-zastresenia', 'kovove-doplnky'];
 const cardClasses = ['sc-1', 'sc-2', 'sc-3', 'sc-4', 'sc-5'];
-const imgStyles: Record<string, string> = { 'schodiska-na-mieru': 'height:220px' };
 
 const cards = cardOrder.map((slug, i) => {
   const p = projects.find((x) => x.slug === slug)!;
-  return { p, cls: cardClasses[i], imgStyle: imgStyles[slug] ?? '' };
+  return { p, cls: cardClasses[i], img: cardImage[slug] };
 });
 ---
 
@@ -26,9 +27,19 @@ const cards = cardOrder.map((slug, i) => {
       </a>
     </div>
     <div class="services-grid">
-      {cards.map(({ p, cls, imgStyle }) => (
+      {cards.map(({ p, cls, img }) => (
         <article class={`service-card ${cls} reveal`}>
-          <div class="service-img img-ph" style={imgStyle} data-label={p.imageLabel}></div>
+          <div class="service-img has-photo">
+            <Image
+              src={img.src}
+              alt={img.alt}
+              width={900}
+              height={Math.round((900 * img.src.height) / img.src.width)}
+              widths={[400, 640, 900]}
+              sizes="(max-width: 900px) 100vw, 45vw"
+              loading="lazy"
+            />
+          </div>
           <div class="service-content">
             <div class="service-icon-sm">
               <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={p.icon}></svg>
