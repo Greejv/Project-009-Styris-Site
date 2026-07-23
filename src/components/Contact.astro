@@ -14,8 +14,10 @@ type Step = {
 const steps: Step[] = [
   { key: 'name', title: 'Ako sa voláte?', placeholder: 'Ján Novák', inputType: 'text', autocomplete: 'name', required: true },
   { key: 'email', title: 'Kam vám máme odpísať?', hint: 'Odpovieme do 24 hodín.', placeholder: 'jan@email.sk', inputType: 'email', autocomplete: 'email', required: true, inputMode: 'email' },
-  { key: 'type', title: 'O aký projekt máte záujem?', hint: 'Napr. schodisko, brána, zábradlie, pergola…', placeholder: 'Schodisko na mieru', inputType: 'text', required: true },
-  { key: 'message', title: 'Povedzte nám viac', hint: 'Rozmery, štýl, termín — čokoľvek nám pomôže pripraviť ponuku.', placeholder: 'Chcem interiérové schodisko z ocele a dubového dreva…', inputType: 'textarea', required: true },
+  // autocomplete: 'off' + the ignore data-attrs below stop browsers / password
+  // managers from injecting personal data into this free-text project field.
+  { key: 'type', title: 'O aký projekt máte záujem?', hint: 'Napr. schodisko, brána, zábradlie, pergola…', placeholder: 'Schodisko na mieru', inputType: 'text', autocomplete: 'off', required: true },
+  { key: 'message', title: 'Povedzte nám viac', hint: 'Rozmery, štýl, termín — čokoľvek nám pomôže pripraviť ponuku.', placeholder: 'Chcem interiérové schodisko z ocele a dubového dreva…', inputType: 'textarea', autocomplete: 'off', required: true },
   { key: 'phone', title: 'Máte na seba telefón?', hint: 'Nepovinné — ale zrýchli to komunikáciu.', placeholder: '+421 ...', inputType: 'tel', autocomplete: 'tel', skippable: true, inputMode: 'tel' },
 ];
 ---
@@ -61,16 +63,25 @@ const steps: Step[] = [
               <label class="stepper-label" for={`sf-${s.key}`}>{s.title}</label>
               {s.hint && <p class="stepper-hint">{s.hint}</p>}
               {s.inputType === 'textarea' ? (
-                <textarea id={`sf-${s.key}`} name={s.key} placeholder={s.placeholder} required={s.required} rows="4"></textarea>
+                <textarea
+                  id={`sf-${s.key}`}
+                  name={s.key}
+                  placeholder={s.placeholder}
+                  required={s.required}
+                  rows="4"
+                  autocomplete={s.autocomplete ?? 'off'}
+                  {...(s.autocomplete === 'off' ? { 'data-1p-ignore': true, 'data-lpignore': 'true', 'data-form-type': 'other' } : {})}
+                ></textarea>
               ) : (
                 <input
                   id={`sf-${s.key}`}
                   name={s.key}
                   type={s.inputType}
                   placeholder={s.placeholder}
-                  autocomplete={s.autocomplete}
+                  autocomplete={s.autocomplete ?? 'off'}
                   inputmode={s.inputMode}
                   required={s.required}
+                  {...(s.autocomplete === 'off' ? { 'data-1p-ignore': true, 'data-lpignore': 'true', 'data-form-type': 'other' } : {})}
                 />
               )}
               <p class="stepper-error" data-error hidden>Prosím vyplňte toto pole.</p>
