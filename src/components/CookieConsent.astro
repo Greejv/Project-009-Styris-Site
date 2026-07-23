@@ -30,6 +30,7 @@
   declare global {
     interface Window {
       dataLayer: any[];
+      gtag: (...args: any[]) => void;
       fbq: any;
       _fbq: any;
     }
@@ -48,7 +49,10 @@
 
   // ── Step 1: gtag function + consent defaults (runs immediately, before GA loads) ──
   window.dataLayer = window.dataLayer || [];
-  function gtag(...args: any[]) { window.dataLayer.push(args); }
+  // Must push the `arguments` object (not a plain array) — gtag.js only treats
+  // arguments-objects in dataLayer as commands; arrays are silently ignored.
+  function gtag() { window.dataLayer.push(arguments); }
+  window.gtag = gtag;
 
   // Read stored consent to set correct defaults on page load
   const storedConsent = localStorage.getItem('cookie-consent');
