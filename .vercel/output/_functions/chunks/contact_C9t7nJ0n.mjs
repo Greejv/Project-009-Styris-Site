@@ -1,7 +1,9 @@
 import { t as __exportAll } from "./rolldown-runtime_D7D4PA-g.mjs";
-import Mailjet from "node-mailjet";
 //#region src/pages/api/contact.ts
-var contact_exports = /* @__PURE__ */ __exportAll({ POST: () => POST });
+var contact_exports = /* @__PURE__ */ __exportAll({
+	POST: () => POST,
+	prerender: () => false
+});
 var FONT_STACK = "'Plus Jakarta Sans', 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif";
 var GOLD = "#FEC12C";
 var DARK = "#1a1c1c";
@@ -487,11 +489,18 @@ var POST = async ({ request }) => {
 			status: 400,
 			headers: { "Content-Type": "application/json" }
 		});
-		const apiKey = "80a7e1fa8912a72a3fd66f916098cb6b";
-		const apiSecret = "d906923495b29ff7837b0236e84cdad5";
-		const fromEmail = "info@styris.sk";
-		const adminEmails = "styris.sk@gmail.com".split(",").map((e) => e.trim()).filter(Boolean);
-		const mailjet = Mailjet.apiConnect(apiKey, apiSecret);
+		const env = typeof process !== "undefined" && process.env || {};
+		const apiKey = env.MAILJET_API_KEY || "80a7e1fa8912a72a3fd66f916098cb6b";
+		const apiSecret = env.MAILJET_API_SECRET || "d906923495b29ff7837b0236e84cdad5";
+		const fromEmail = env.MAILJET_FROM_EMAIL || "info@styris.sk";
+		const adminEmails = (env.ADMIN_EMAILS || "styris.sk@gmail.com").split(",").map((e) => e.trim()).filter(Boolean);
+		if (!apiKey || !apiSecret) {
+			console.error("[contact] Missing Mailjet API credentials");
+			return new Response(JSON.stringify({ error: "Chyba servera. Skúste to prosím neskôr." }), {
+				status: 500,
+				headers: { "Content-Type": "application/json" }
+			});
+		}
 		const trimmedName = name.trim();
 		const trimmedEmail = email.trim();
 		const trimmedType = type.trim();
@@ -543,7 +552,23 @@ ${trimmedMessage}
 —
 Odoslaná cez kontaktný formulár na styris.sk`
 		}))];
-		await mailjet.post("send", { version: "v3.1" }).request({ Messages: messages });
+		const auth = Buffer.from(`${apiKey}:${apiSecret}`).toString("base64");
+		const mjRes = await fetch("https://api.mailjet.com/v3.1/send", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Basic ${auth}`
+			},
+			body: JSON.stringify({ Messages: messages })
+		});
+		if (!mjRes.ok) {
+			const detail = await mjRes.text().catch(() => "");
+			console.error("[contact] Mailjet API error:", mjRes.status, detail);
+			return new Response(JSON.stringify({ error: "Nepodarilo sa odoslať správu. Skúste to prosím neskôr." }), {
+				status: 502,
+				headers: { "Content-Type": "application/json" }
+			});
+		}
 		return new Response(JSON.stringify({ success: true }), {
 			status: 200,
 			headers: { "Content-Type": "application/json" }
