@@ -1,0 +1,61 @@
+---
+import '../styles/fonts.css';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Styris — Kovové konštrukcie na mieru',
+  description = 'Ručná výroba kovových brán, schodísk, zábradlí a pergol na mieru pre rodinné domy v Košickom kraji. 3D vizualizácia a technické výkresy zadarmo.',
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://styris.sk').href;
+---
+
+<!doctype html>
+<html lang="sk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#f6f6f4" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Styris" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content="sk_SK" />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Local business structured data -->
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'HomeAndConstructionBusiness',
+        name: 'Styris',
+        description,
+        areaServed: 'Košický kraj, Slovensko',
+        telephone: '+421902876543',
+        email: 'info@styris.sk',
+        url: canonical,
+      })}
+    />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

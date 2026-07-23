@@ -1,0 +1,55 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo-trim.png';
+
+const year = new Date().getFullYear();
+const LOGO_H = 22;
+const LOGO_W = Math.round((LOGO_H * logo.width) / logo.height);
+
+const pathname = Astro.url.pathname;
+const isHome = pathname === '/' || pathname === '';
+const homeAnchor = (hash: string) => (isHome ? `#${hash}` : `/#${hash}`);
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="/" class="footer-logo logo-plate" aria-label="Styris — domov">
+          <Image src={logo} alt="Styris" height={LOGO_H} width={LOGO_W} densities={[1, 2, 3]} loading="lazy" format="png" />
+        </a>
+        <p>Prémiové kovové konštrukcie na mieru. Navrhujeme, vyrábame a inštalujeme s dôrazom na kvalitu a detail.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Spoločnosť</h4>
+        <ul>
+          <li><a href={homeAnchor('quality')}>O nás</a></li>
+          <li><a href={homeAnchor('process')}>Náš proces</a></li>
+          <li><a href="/prace">Naše práce</a></li>
+          <li><a href={homeAnchor('contact')}>Kontakt</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Služby</h4>
+        <ul>
+          <li><a href="/prace/schodiska-na-mieru">Schodiská</a></li>
+          <li><a href="/prace/zabradlia-a-madla">Zábradlia</a></li>
+          <li><a href="/prace/kovove-brany-a-ploty">Brány &amp; ploty</a></li>
+          <li><a href="/prace/pergoly-a-zastresenia">Pergoly</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kontakt</h4>
+        <ul>
+          <li><a href="tel:+421940498866">+421 940 498 866</a></li>
+          <li><a href="mailto:info@styris.sk">info@styris.sk</a></li>
+          <li>Košická 18, 044 14 Čaňa</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>{year} Styris. Všetky práva vyhradené.</p>
+      <p><a href="/ochrana-sukromia">Ochrana súkromia</a></p>
+    </div>
+  </div>
+</footer>

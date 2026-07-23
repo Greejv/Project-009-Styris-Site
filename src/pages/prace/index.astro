@@ -1,0 +1,71 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { projects } from '../../data/projects';
+
+const title = 'Naše práce — realizované projekty | Styris';
+const description =
+  'Prezrite si realizované projekty Styris: kovové brány, schodiská, zábradlia, pergoly a priemyselné konštrukcie na východnom Slovensku. Prípadové štúdie s detailmi.';
+---
+
+<Layout title={title} description={description}>
+  <Nav />
+  <main class="work-main">
+    <section class="work-hero">
+      <div class="container">
+        <nav class="crumbs reveal" aria-label="Navigácia stránok">
+          <a href="/">Domov</a>
+          <span aria-hidden="true">›</span>
+          <span aria-current="page">Naše práce</span>
+        </nav>
+        <p class="label-bold work-eyebrow reveal">Portfólio</p>
+        <h1 class="work-title reveal">Naše práce</h1>
+        <p class="work-desc reveal">
+          Kompletný prehľad toho, čo robíme. Kliknite na projekt a pozrite si detailnú prípadovú štúdiu —
+          materiály, technológie, časté otázky a reálne použitie.
+        </p>
+        <div class="work-stats reveal">
+          <div><strong>50+</strong><span>dokončených projektov</span></div>
+          <div><strong>6</strong><span>hlavných kategórií</span></div>
+          <div><strong>5</strong><span>rokov v Košickom kraji</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="work-grid-section">
+      <div class="container">
+        <div class="work-grid">
+          {projects.map((p) => (
+            <a href={`/prace/${p.slug}`} class="work-card reveal" aria-label={`Prípadová štúdia: ${p.title}`}>
+              <div class="work-card-img img-ph" data-label={p.imageLabel}></div>
+              <div class="work-card-body">
+                <p class="work-card-cat">{p.category}</p>
+                <h2>{p.title}</h2>
+                <p>{p.short}</p>
+                <span class="work-card-cta">
+                  Zobraziť projekt
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </span>
+              </div>
+            </a>
+          ))}
+        </div>
+
+        <div class="work-cta-bottom reveal">
+          <h3>Máte na mysli niečo iné?</h3>
+          <p>Ak to ide urobiť z ocele, urobíme to. Napíšte nám aj neobvyklý projekt — radi si sadneme a povieme, čo je reálne.</p>
+          <a href="/#contact" class="btn btn-primary work-contact-btn">
+            Napísať nám o projekte
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  import '../../scripts/main.ts';
+</script>

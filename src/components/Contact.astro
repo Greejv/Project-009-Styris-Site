@@ -1,0 +1,106 @@
+---
+type Step = {
+  key: 'name' | 'email' | 'type' | 'message' | 'phone';
+  title: string;
+  hint?: string;
+  placeholder: string;
+  inputType?: 'text' | 'email' | 'tel' | 'textarea';
+  autocomplete?: string;
+  required?: boolean;
+  skippable?: boolean;
+  inputMode?: string;
+};
+
+const steps: Step[] = [
+  { key: 'name', title: 'Ako sa voláte?', placeholder: 'Ján Novák', inputType: 'text', autocomplete: 'name', required: true },
+  { key: 'email', title: 'Kam vám máme odpísať?', hint: 'Odpovieme do 24 hodín.', placeholder: 'jan@email.sk', inputType: 'email', autocomplete: 'email', required: true, inputMode: 'email' },
+  { key: 'type', title: 'O aký projekt máte záujem?', hint: 'Napr. schodisko, brána, zábradlie, pergola…', placeholder: 'Schodisko na mieru', inputType: 'text', required: true },
+  { key: 'message', title: 'Povedzte nám viac', hint: 'Rozmery, štýl, termín — čokoľvek nám pomôže pripraviť ponuku.', placeholder: 'Chcem interiérové schodisko z ocele a dubového dreva…', inputType: 'textarea', required: true },
+  { key: 'phone', title: 'Máte na seba telefón?', hint: 'Nepovinné — ale zrýchli to komunikáciu.', placeholder: '+421 ...', inputType: 'tel', autocomplete: 'tel', skippable: true, inputMode: 'tel' },
+];
+---
+
+<section class="contact section-dark" id="contact">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="reveal">
+        <p class="label-bold">Kontakt</p>
+        <h2 class="headline-lg">Napíšte nám o&nbsp;vašom projekte</h2>
+        <p class="contact-desc">Radi vám pomôžeme s realizáciou vášho projektu. Kontaktujte nás pre bezplatnú konzultáciu.</p>
+        <div class="contact-info">
+          <div class="contact-info-item">
+            <div class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.8" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z"></path></svg>
+            </div>
+            <a href="tel:+421940498866"><span>+421 940 498 866</span></a>
+          </div>
+          <div class="contact-info-item">
+            <div class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.8" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            </div>
+            <a href="mailto:info@styris.sk"><span>info@styris.sk</span></a>
+          </div>
+          <div class="contact-info-item">
+            <div class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.8" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            </div>
+            <span>Košická 18, 044 14 Čaňa</span>
+          </div>
+        </div>
+      </div>
+
+      <form class="contact-form stepper reveal" id="contact-form" novalidate data-total={steps.length}>
+        <div class="stepper-head">
+          <span class="stepper-count"><strong id="stepper-current">1</strong> / {steps.length}</span>
+          <div class="stepper-progress"><span id="stepper-bar" style={`width: ${100 / steps.length}%`}></span></div>
+        </div>
+
+        <div class="stepper-viewport">
+          {steps.map((s, i) => (
+            <div class="stepper-step" data-step={i} data-key={s.key} data-required={s.required ? 'true' : 'false'} data-skippable={s.skippable ? 'true' : 'false'} hidden={i !== 0}>
+              <label class="stepper-label" for={`sf-${s.key}`}>{s.title}</label>
+              {s.hint && <p class="stepper-hint">{s.hint}</p>}
+              {s.inputType === 'textarea' ? (
+                <textarea id={`sf-${s.key}`} name={s.key} placeholder={s.placeholder} required={s.required} rows="4"></textarea>
+              ) : (
+                <input
+                  id={`sf-${s.key}`}
+                  name={s.key}
+                  type={s.inputType}
+                  placeholder={s.placeholder}
+                  autocomplete={s.autocomplete}
+                  inputmode={s.inputMode}
+                  required={s.required}
+                />
+              )}
+              <p class="stepper-error" data-error hidden>Prosím vyplňte toto pole.</p>
+            </div>
+          ))}
+
+          <div class="stepper-done" hidden>
+            <div class="stepper-done-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <h3>Ďakujeme!</h3>
+            <p>Vaša správa je na ceste. Ozveme sa vám <strong>do 24 hodín</strong>.</p>
+            <button type="button" class="btn btn-outline" data-restart>Poslať ďalšiu správu</button>
+          </div>
+        </div>
+
+        <div class="stepper-actions">
+          <button type="button" class="stepper-btn stepper-back" data-back hidden aria-label="Späť">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            <span>Späť</span>
+          </button>
+          <button type="button" class="stepper-btn stepper-skip" data-skip hidden>Preskočiť</button>
+          <button type="button" class="stepper-btn stepper-next" data-next>
+            <span data-next-label>Ďalej</span>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </button>
+        </div>
+
+        <p class="stepper-tip"><kbd>Enter</kbd> pre pokračovanie</p>
+      </form>
+    </div>
+  </div>
+</section>

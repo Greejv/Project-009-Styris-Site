@@ -1,0 +1,16 @@
+/* Self-hosted fonts (no third-party requests) — only the weights the design uses. */
+
+/* Plus Jakarta Sans — headings (500/600/700/800) */
+@import '@fontsource/plus-jakarta-sans/500.css';
+@import '@fontsource/plus-jakarta-sans/600.css';
+@import '@fontsource/plus-jakarta-sans/700.css';
+@import '@fontsource/plus-jakarta-sans/800.css';
+
+/* Hanken Grotesk — body (400/500/600/700) */
+@import '@fontsource/hanken-grotesk/400.css';
+@import '@fontsource/hanken-grotesk/500.css';
+@import '@fontsource/hanken-grotesk/600.css';
+@import '@fontsource/hanken-grotesk/700.css';
+
+/* DM Sans — hero italic subline (300 italic) */
+@import '@fontsource/dm-sans/300-italic.css';

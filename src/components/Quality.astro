@@ -1,0 +1,35 @@
+---
+const features = [
+  { title: 'Certifikované materiály', text: 'Používame len overené a certifikované materiály od preverených dodávateľov.' },
+  { title: 'Presná výroba', text: 'Moderné CNC technológie zabezpečujú maximálnu presnosť každého dielu.' },
+  { title: 'Profesionálny tím', text: 'Náš tím skúsených odborníkov garantuje kvalitu v každom kroku.' },
+];
+---
+
+<section class="quality section-dark" id="quality">
+  <div class="container">
+    <div class="quality-inner">
+      <div class="reveal">
+        <p class="label-bold">Prečo my</p>
+        <h2 class="headline-lg">Kvalita, na ktorú sa môžete spoľahnúť</h2>
+        <div class="quality-features">
+          {features.map((f) => (
+            <div class="quality-feature">
+              <div class="check">
+                <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+              <div>
+                <h4>{f.title}</h4>
+                <p>{f.text}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div class="quality-stat reveal">
+        <span class="stat-number">100%</span>
+        <p>spokojnosť zákazníkov na základe spätnej väzby z realizovaných projektov</p>
+      </div>
+    </div>
+  </div>
+</section>

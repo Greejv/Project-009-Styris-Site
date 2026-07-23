@@ -1,0 +1,196 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { projects } from '../../data/projects';
+
+export function getStaticPaths() {
+  return projects.map((p) => ({ params: { slug: p.slug }, props: { project: p } }));
+}
+
+const { project } = Astro.props;
+const related = projects.filter((p) => p.slug !== project.slug).slice(0, 3);
+
+const title = `${project.title} — prípadová štúdia | Styris`;
+const description = `${project.tagline}. ${project.intro}`;
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://styris.sk').href;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: project.title,
+  provider: {
+    '@type': 'HomeAndConstructionBusiness',
+    name: 'Styris',
+    telephone: '+421940498866',
+    email: 'info@styris.sk',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Košická 18',
+      addressLocality: 'Čaňa',
+      postalCode: '044 14',
+      addressCountry: 'SK',
+    },
+  },
+  areaServed: 'Košický kraj, Slovensko',
+  description: project.intro,
+  url: canonical,
+};
+
+const faqJsonLd = project.faq.length
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: project.faq.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    }
+  : null;
+---
+
+<Layout title={title} description={description}>
+  <Nav />
+  <main class="cs-main">
+
+    <section class="cs-hero">
+      <div class="container">
+        <nav class="crumbs reveal" aria-label="Navigácia stránok">
+          <a href="/">Domov</a>
+          <span aria-hidden="true">›</span>
+          <a href="/prace">Naše práce</a>
+          <span aria-hidden="true">›</span>
+          <span aria-current="page">{project.title}</span>
+        </nav>
+
+        <p class="label-bold cs-eyebrow reveal">{project.category}</p>
+        <h1 class="cs-title reveal">{project.title}</h1>
+        <p class="cs-tagline reveal">{project.tagline}</p>
+        <p class="cs-intro reveal">{project.intro}</p>
+
+        <div class="cs-cta-row reveal">
+          <a href="/#contact" class="btn btn-primary">
+            Chcem takýto projekt
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+          <a href="/prace" class="btn btn-outline">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            Späť na projekty
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="cs-showcase">
+      <div class="container">
+        <div class="cs-showcase-img img-ph reveal" data-label={project.imageLabel}></div>
+      </div>
+    </section>
+
+    <section class="cs-body">
+      <div class="container cs-body-grid">
+        <div class="cs-main-col">
+
+          <div class="cs-section reveal">
+            <p class="label-bold">O projekte</p>
+            <h2>Čo z toho dostanete</h2>
+            <p class="cs-lede">{project.description}</p>
+          </div>
+
+          <div class="cs-section reveal">
+            <p class="label-bold">Výhody</p>
+            <h2>Čo je súčasťou dodávky</h2>
+            <ul class="cs-features">
+              {project.features.map((f) => (
+                <li>
+                  <span class="cs-check">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  </span>
+                  <span>{f}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="cs-section reveal">
+            <p class="label-bold">Kde sa to hodí</p>
+            <h2>Typické použitie</h2>
+            <ul class="cs-uses">
+              {project.useCases.map((u) => <li>{u}</li>)}
+            </ul>
+          </div>
+
+          {project.faq.length > 0 && (
+            <div class="cs-section reveal">
+              <p class="label-bold">FAQ</p>
+              <h2>Časté otázky</h2>
+              <div class="cs-faq">
+                {project.faq.map((f, i) => (
+                  <details class="cs-faq-item" open={i === 0}>
+                    <summary>
+                      <span>{f.q}</span>
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </summary>
+                    <p>{f.a}</p>
+                  </details>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        <aside class="cs-side">
+          <div class="cs-side-card reveal">
+            <p class="label-bold cs-side-label">Materiály</p>
+            <ul class="cs-materials">
+              {project.materials.map((m) => <li>{m}</li>)}
+            </ul>
+          </div>
+
+          <div class="cs-side-card cs-cta-card reveal">
+            <h3>Radi vám poradíme</h3>
+            <p>Bezplatná konzultácia, 3D vizualizácia a cenová ponuka — všetko zadarmo pred podpisom.</p>
+            <a href="/#contact" class="btn btn-primary">Napísať nám</a>
+            <p class="cs-cta-phone">
+              alebo zavolajte <a href="tel:+421940498866">+421 940 498 866</a>
+            </p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="cs-related section-tinted">
+      <div class="container">
+        <div class="cs-related-head reveal">
+          <p class="label-bold">Ďalšie projekty</p>
+          <h2>Pozrite si aj</h2>
+        </div>
+        <div class="cs-related-grid">
+          {related.map((p) => (
+            <a href={`/prace/${p.slug}`} class="cs-related-card reveal">
+              <div class="cs-related-img img-ph" data-label={p.imageLabel}></div>
+              <div class="cs-related-body">
+                <p class="cs-related-cat">{p.category}</p>
+                <h3>{p.title}</h3>
+                <span class="cs-related-cta">
+                  Zobraziť
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
+{faqJsonLd && <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)}></script>}
+
+<script>
+  import '../../scripts/main.ts';
+</script>
