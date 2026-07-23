@@ -35,28 +35,58 @@
     }
   }
 
-  let analyticsLoaded = false;
+  /* ─── Google Consent Mode v2 ───
+   * 1. Set consent defaults BEFORE gtag loads (denied by default)
+   * 2. Load the Google tag (it respects consent state automatically)
+   * 3. On user accept: call gtag('consent','update',...) on the SAME page
+   * 4. On subsequent pages: restore consent state from localStorage before tags fire
+   */
 
-  function gtag(...args: any[]) {
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push(args);
-  }
+  let gaLoaded = false;
+  let metaPixelLoaded = false;
+  let eventsbound = false;
 
-  function loadAnalytics() {
-    if (analyticsLoaded) return;
-    analyticsLoaded = true;
+  // ── Step 1: gtag function + consent defaults (runs immediately, before GA loads) ──
+  window.dataLayer = window.dataLayer || [];
+  function gtag(...args: any[]) { window.dataLayer.push(args); }
 
-    // Google Analytics
+  // Read stored consent to set correct defaults on page load
+  const storedConsent = localStorage.getItem('cookie-consent');
+  const consentState = storedConsent === 'accepted' ? 'granted' : 'denied';
+
+  // Consent Mode v2: set default consent BEFORE loading the Google tag
+  gtag('consent', 'default', {
+    'ad_storage': consentState,
+    'ad_user_data': consentState,
+    'ad_personalization': consentState,
+    'analytics_storage': consentState,
+    'wait_for_update': 500,
+  });
+
+  // Redact ad data when consent is denied
+  gtag('set', 'ads_data_redaction', true);
+  // Enable URL passthrough for better measurement without cookies
+  gtag('set', 'url_passthrough', true);
+
+  // ── Step 2: Load Google Analytics (always, consent mode controls behavior) ──
+  function loadGA() {
+    if (gaLoaded) return;
+    gaLoaded = true;
+
     const gaScript = document.createElement('script');
     gaScript.async = true;
     gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-K5N68SRS99';
     document.head.appendChild(gaScript);
 
-    window.dataLayer = window.dataLayer || [];
     gtag('js', new Date());
     gtag('config', 'G-K5N68SRS99', { send_page_view: true });
+  }
 
-    // Meta Pixel
+  // ── Load Meta Pixel (only after consent granted) ──
+  function loadMetaPixel() {
+    if (metaPixelLoaded) return;
+    metaPixelLoaded = true;
+
     !function(f: any,b: any,e: any,v: any,n?: any,t?: any,s?: any)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
     n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -67,17 +97,37 @@
     'https://connect.facebook.net/en_US/fbevents.js');
     window.fbq('init', '1109649517577215');
     window.fbq('track', 'PageView');
+  }
 
-    // Vercel Analytics
+  // ── Load Vercel Analytics (only after consent granted) ──
+  function loadVercelAnalytics() {
     import('@vercel/analytics').then(({ inject }) => {
       inject();
     });
+  }
 
-    // Bind event tracking after analytics are ready
-    bindEventTracking();
+  // ── Step 3: Grant consent (called on SAME page, before any navigation) ──
+  function grantConsent() {
+    gtag('consent', 'update', {
+      'ad_storage': 'granted',
+      'ad_user_data': 'granted',
+      'ad_personalization': 'granted',
+      'analytics_storage': 'granted',
+    });
 
-    // Fire conversion on thank-you page
-    trackThankYouConversion();
+    // Load Meta Pixel and Vercel Analytics now that consent is granted
+    loadMetaPixel();
+    loadVercelAnalytics();
+  }
+
+  // ── Deny/revoke consent ──
+  function denyConsent() {
+    gtag('consent', 'update', {
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'analytics_storage': 'denied',
+    });
   }
 
   /** Fire a conversion event if user landed on /dakujeme */
@@ -90,7 +140,6 @@
 
   /** Track page views on Astro client-side navigation */
   function trackPageView() {
-    if (!analyticsLoaded) return;
     gtag('event', 'page_view', {
       page_path: window.location.pathname,
       page_title: document.title,
@@ -100,9 +149,11 @@
 
   /** Track key user actions across all pages */
   function bindEventTracking() {
+    if (eventsbound) return;
+    eventsbound = true;
+
     // Use event delegation on document so it works on every page without re-binding
     document.addEventListener('click', (e) => {
-      if (!analyticsLoaded) return;
       const target = (e.target as HTMLElement).closest('a, button') as HTMLElement | null;
       if (!target) return;
 
@@ -149,25 +200,36 @@
     const banner = document.getElementById('cookie-consent');
     const stored = localStorage.getItem('cookie-consent');
 
+    // Always load GA (consent mode controls what it does)
+    loadGA();
+    // Always bind event tracking (gtag queues events; consent mode controls storage)
+    bindEventTracking();
+
     if (stored === 'accepted') {
-      loadAnalytics();
+      // Consent already granted — load Meta Pixel & Vercel Analytics
+      loadMetaPixel();
+      loadVercelAnalytics();
+      trackThankYouConversion();
       return;
     }
 
     if (stored === 'declined') return;
 
-    // Show banner
+    // No stored preference — show banner
     banner?.removeAttribute('hidden');
 
     document.getElementById('cookie-accept')?.addEventListener('click', () => {
       localStorage.setItem('cookie-consent', 'accepted');
       banner?.setAttribute('hidden', '');
-      loadAnalytics();
+      // Update consent on THIS page before any navigation
+      grantConsent();
+      trackThankYouConversion();
     });
 
     document.getElementById('cookie-decline')?.addEventListener('click', () => {
       localStorage.setItem('cookie-consent', 'declined');
       banner?.setAttribute('hidden', '');
+      denyConsent();
     });
   }
 

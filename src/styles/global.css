@@ -703,16 +703,23 @@ a, button { -webkit-tap-highlight-color: transparent; }
 .thankyou-steps li div strong { display: block; color: var(--text-primary); margin-bottom: 2px; }
 .thankyou-steps li div p { margin: 0; color: var(--text-secondary); font-size: 14px; line-height: 1.5; }
 
-.thankyou-contact {
-  padding: 20px 24px; background: rgba(0,0,0,0.03); border-radius: var(--radius-md);
-  margin-bottom: 32px;
+.thankyou-contact-section {
+  padding: 28px 24px; background: rgba(0,0,0,0.03); border-radius: var(--radius-md);
+  margin-bottom: 32px; text-align: center;
 }
-.thankyou-contact p { margin: 0 0 8px; color: var(--text-secondary); font-size: 14px; }
-.thankyou-phone {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-size: 18px; font-weight: 700; color: var(--text-primary); text-decoration: none;
+.thankyou-contact-eyebrow { color: var(--gold); margin-bottom: 8px; display: inline-block; }
+.thankyou-contact-heading {
+  font-family: var(--font-heading); font-size: 22px; font-weight: 800;
+  color: var(--text-primary); margin-bottom: 6px;
 }
-.thankyou-phone:hover { color: var(--gold); }
+.thankyou-contact-desc { color: var(--text-secondary); font-size: 14px; line-height: 1.5; margin: 0 0 20px; }
+.thankyou-contact-items { display: flex; flex-direction: column; gap: 12px; align-items: center; }
+.thankyou-contact-item { display: flex; align-items: center; gap: 10px; }
+.thankyou-contact-icon { color: var(--gold); flex-shrink: 0; display: flex; }
+.thankyou-contact-item a, .thankyou-contact-item span {
+  font-size: 15px; font-weight: 600; color: var(--text-primary); text-decoration: none;
+}
+.thankyou-contact-item a:hover { color: var(--gold); }
 
 .thankyou-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
