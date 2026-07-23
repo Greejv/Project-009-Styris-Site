@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://styris.duetweb-dev.dev',
+  site: 'https://styris.sk',
   integrations: [sitemap()],
   compressHTML: true,
   build: {

@@ -673,6 +673,56 @@ a, button { -webkit-tap-highlight-color: transparent; }
   .work-cta-bottom h3 { font-size: 22px; }
 }
 
+/* ══════════════ THANK YOU PAGE ══════════════ */
+.thankyou-main { padding-top: 80px; }
+.thankyou-hero { padding: 88px 0 var(--section-gap); min-height: calc(100vh - 80px); display: flex; align-items: center; }
+.thankyou-card {
+  max-width: 680px; margin: 0 auto; text-align: center;
+  background: var(--dark-card); border: 1px solid var(--dark-card-border);
+  border-radius: var(--radius-xl); padding: 56px 48px;
+}
+.thankyou-icon { color: var(--gold); margin-bottom: 24px; }
+.thankyou-title {
+  font-family: var(--font-heading); font-size: 36px; font-weight: 800;
+  line-height: 1.15; letter-spacing: -0.02em; color: var(--text-primary); margin-bottom: 12px;
+}
+.thankyou-text { color: var(--text-secondary); font-size: 17px; line-height: 1.6; max-width: 480px; margin: 0 auto 40px; }
+
+.thankyou-next { text-align: left; margin-bottom: 40px; }
+.thankyou-next h2 {
+  font-family: var(--font-heading); font-size: 18px; font-weight: 700;
+  color: var(--text-primary); margin-bottom: 20px; text-align: center;
+}
+.thankyou-steps { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+.thankyou-steps li { display: flex; align-items: flex-start; gap: 16px; }
+.thankyou-step-num {
+  flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%;
+  background: var(--gold); color: #1a1a1a; font-weight: 700; font-size: 14px;
+  display: flex; align-items: center; justify-content: center; margin-top: 2px;
+}
+.thankyou-steps li div strong { display: block; color: var(--text-primary); margin-bottom: 2px; }
+.thankyou-steps li div p { margin: 0; color: var(--text-secondary); font-size: 14px; line-height: 1.5; }
+
+.thankyou-contact {
+  padding: 20px 24px; background: rgba(0,0,0,0.03); border-radius: var(--radius-md);
+  margin-bottom: 32px;
+}
+.thankyou-contact p { margin: 0 0 8px; color: var(--text-secondary); font-size: 14px; }
+.thankyou-phone {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 18px; font-weight: 700; color: var(--text-primary); text-decoration: none;
+}
+.thankyou-phone:hover { color: var(--gold); }
+
+.thankyou-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+@media (max-width: 600px) {
+  .thankyou-card { padding: 40px 24px; }
+  .thankyou-title { font-size: 28px; }
+  .thankyou-actions { flex-direction: column; }
+  .thankyou-actions .btn { width: 100%; }
+}
+
 /* ══════════════ PRIVACY PAGE ══════════════ */
 .privacy-main { padding-top: 80px; }
 .privacy-hero { padding: 88px 0 56px; text-align: center; }
@@ -1023,6 +1073,42 @@ a, button { -webkit-tap-highlight-color: transparent; }
 }
 @media (max-width: 400px) {
   .cs-title { font-size: 26px; }
+}
+
+/* ── Cookie consent banner ── */
+@keyframes cookie-slide-up {
+  from { opacity: 0; transform: translateY(100%); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.cookie-banner {
+  position: fixed; bottom: 24px; left: 24px; z-index: 9999;
+  display: flex; flex-direction: column; gap: 16px;
+  max-width: 380px; padding: 24px;
+  background: #fff; border: 1px solid var(--dark-card-border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06);
+  font-size: 0.875rem; color: var(--text-secondary);
+  animation: cookie-slide-up 0.4s ease-out;
+}
+.cookie-banner[hidden] { display: none; }
+.cookie-icon { color: var(--gold); flex-shrink: 0; }
+.cookie-content { display: flex; flex-direction: column; gap: 4px; }
+.cookie-title { margin: 0; font-family: var(--font-heading); font-size: 1rem; font-weight: 700; color: var(--text-primary); }
+.cookie-text { margin: 0; line-height: 1.5; }
+.cookie-text a { color: var(--gold-hover); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+.cookie-text a:hover { color: var(--gold); }
+.cookie-actions { display: flex; gap: 8px; }
+.cookie-btn {
+  flex: 1; padding: 10px 20px; border-radius: var(--radius-sm); border: none;
+  font-family: var(--font-body); font-size: 0.8125rem; font-weight: 600;
+  cursor: pointer; transition: all 0.2s ease;
+}
+.cookie-btn--accept { background: var(--gold); color: #1a1c1c; }
+.cookie-btn--accept:hover { background: var(--gold-hover); transform: translateY(-1px); }
+.cookie-btn--decline { background: transparent; color: var(--text-secondary); border: 1px solid var(--outline); }
+.cookie-btn--decline:hover { border-color: var(--text-secondary); background: rgba(0,0,0,0.03); }
+@media (max-width: 600px) {
+  .cookie-banner { bottom: 16px; left: 16px; right: 16px; max-width: none; }
 }
 
 /* ── Accessibility: honour reduced-motion (does not alter static design) ── */

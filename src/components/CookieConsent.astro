@@ -1,0 +1,182 @@
+---
+/* Cookie consent banner — loads GA, Meta Pixel & Vercel Analytics only after acceptance */
+---
+
+<div id="cookie-consent" class="cookie-banner" role="dialog" aria-label="Súhlas s cookies" hidden>
+  <div class="cookie-icon" aria-hidden="true">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <circle cx="8" cy="9" r="1.2" fill="currentColor" stroke="none"/>
+      <circle cx="14" cy="7.5" r="1" fill="currentColor" stroke="none"/>
+      <circle cx="16" cy="13" r="1.2" fill="currentColor" stroke="none"/>
+      <circle cx="10" cy="15" r="1" fill="currentColor" stroke="none"/>
+      <circle cx="6.5" cy="13" r="0.8" fill="currentColor" stroke="none"/>
+    </svg>
+  </div>
+  <div class="cookie-content">
+    <p class="cookie-title">Súbory cookies</p>
+    <p class="cookie-text">
+      Používame cookies na analýzu návštevnosti a&nbsp;vyhodnotenie reklamy. Váš súhlas môžete kedykoľvek zmeniť.
+      <a href="/ochrana-sukromia">Viac informácií</a>
+    </p>
+  </div>
+  <div class="cookie-actions">
+    <button id="cookie-decline" class="cookie-btn cookie-btn--decline" type="button">Odmietnuť</button>
+    <button id="cookie-accept" class="cookie-btn cookie-btn--accept" type="button">Súhlasím</button>
+  </div>
+</div>
+
+<script>
+  declare global {
+    interface Window {
+      dataLayer: any[];
+      fbq: any;
+      _fbq: any;
+    }
+  }
+
+  let analyticsLoaded = false;
+
+  function gtag(...args: any[]) {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push(args);
+  }
+
+  function loadAnalytics() {
+    if (analyticsLoaded) return;
+    analyticsLoaded = true;
+
+    // Google Analytics
+    const gaScript = document.createElement('script');
+    gaScript.async = true;
+    gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-K5N68SRS99';
+    document.head.appendChild(gaScript);
+
+    window.dataLayer = window.dataLayer || [];
+    gtag('js', new Date());
+    gtag('config', 'G-K5N68SRS99', { send_page_view: true });
+
+    // Meta Pixel
+    !function(f: any,b: any,e: any,v: any,n?: any,t?: any,s?: any)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    window.fbq('init', '1109649517577215');
+    window.fbq('track', 'PageView');
+
+    // Vercel Analytics
+    import('@vercel/analytics').then(({ inject }) => {
+      inject();
+    });
+
+    // Bind event tracking after analytics are ready
+    bindEventTracking();
+
+    // Fire conversion on thank-you page
+    trackThankYouConversion();
+  }
+
+  /** Fire a conversion event if user landed on /dakujeme */
+  function trackThankYouConversion() {
+    if (window.location.pathname === '/dakujeme') {
+      gtag('event', 'generate_lead', { event_category: 'contact', event_label: 'form_submission' });
+      window.fbq?.('track', 'Lead', { content_name: 'contact_form_submission' });
+    }
+  }
+
+  /** Track page views on Astro client-side navigation */
+  function trackPageView() {
+    if (!analyticsLoaded) return;
+    gtag('event', 'page_view', {
+      page_path: window.location.pathname,
+      page_title: document.title,
+    });
+    window.fbq?.('track', 'PageView');
+  }
+
+  /** Track key user actions across all pages */
+  function bindEventTracking() {
+    // Use event delegation on document so it works on every page without re-binding
+    document.addEventListener('click', (e) => {
+      if (!analyticsLoaded) return;
+      const target = (e.target as HTMLElement).closest('a, button') as HTMLElement | null;
+      if (!target) return;
+
+      const href = target.getAttribute('href') || '';
+
+      // Phone click
+      if (href.startsWith('tel:')) {
+        gtag('event', 'contact_phone', { method: 'phone', link_url: href });
+        window.fbq?.('track', 'Contact', { content_name: 'phone' });
+        return;
+      }
+
+      // Email click
+      if (href.startsWith('mailto:')) {
+        gtag('event', 'contact_email', { method: 'email', link_url: href });
+        window.fbq?.('track', 'Contact', { content_name: 'email' });
+        return;
+      }
+
+      // CTA buttons (nav CTA, hero CTA)
+      if (target.classList.contains('nav-cta-btn') || target.classList.contains('hero-glow-btn')) {
+        gtag('event', 'cta_click', { link_text: target.textContent?.trim(), link_url: href });
+        window.fbq?.('track', 'Lead', { content_name: target.textContent?.trim() });
+        return;
+      }
+
+      // Service/portfolio links
+      if (href.startsWith('/prace')) {
+        gtag('event', 'view_portfolio', { link_url: href, link_text: target.textContent?.trim() });
+        window.fbq?.('track', 'ViewContent', { content_name: href });
+        return;
+      }
+    });
+
+    // Contact form submission
+    const form = document.getElementById('contact-form');
+    form?.addEventListener('submit', () => {
+      gtag('event', 'form_submit', { form_name: 'contact' });
+      window.fbq?.('track', 'Lead', { content_name: 'contact_form' });
+    });
+  }
+
+  function initConsent() {
+    const banner = document.getElementById('cookie-consent');
+    const stored = localStorage.getItem('cookie-consent');
+
+    if (stored === 'accepted') {
+      loadAnalytics();
+      return;
+    }
+
+    if (stored === 'declined') return;
+
+    // Show banner
+    banner?.removeAttribute('hidden');
+
+    document.getElementById('cookie-accept')?.addEventListener('click', () => {
+      localStorage.setItem('cookie-consent', 'accepted');
+      banner?.setAttribute('hidden', '');
+      loadAnalytics();
+    });
+
+    document.getElementById('cookie-decline')?.addEventListener('click', () => {
+      localStorage.setItem('cookie-consent', 'declined');
+      banner?.setAttribute('hidden', '');
+    });
+  }
+
+  // Run on initial load
+  initConsent();
+
+  // On Astro client-side navigation: track new page view + re-check consent
+  document.addEventListener('astro:after-swap', () => {
+    initConsent();
+    trackPageView();
+  });
+</script>

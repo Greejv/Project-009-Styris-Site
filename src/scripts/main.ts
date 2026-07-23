@@ -242,7 +242,9 @@ if (form) {
 
     nextBtn.classList.remove('is-submitting');
     nextBtn.disabled = false;
-    showDone();
+
+    // Redirect to thank-you page
+    window.location.href = '/dakujeme';
   };
 
   const advance = async () => {
