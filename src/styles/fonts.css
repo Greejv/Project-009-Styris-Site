@@ -1,16 +1,15 @@
-/* Self-hosted fonts (no third-party requests) — only the weights the design uses. */
+/* Self-hosted fonts (no third-party requests) — only what the design uses.
+ *
+ * Variable files carry every weight in one download, so the two UI families cost
+ * 2 requests per subset instead of one per weight (was 13 font files, now 5). */
 
-/* Plus Jakarta Sans — headings (500/600/700/800) */
-@import '@fontsource/plus-jakarta-sans/500.css';
-@import '@fontsource/plus-jakarta-sans/600.css';
-@import '@fontsource/plus-jakarta-sans/700.css';
-@import '@fontsource/plus-jakarta-sans/800.css';
+/* Plus Jakarta Sans — headings, weights 500–800 */
+@import '@fontsource-variable/plus-jakarta-sans/wght.css';
 
-/* Hanken Grotesk — body (400/500/600/700) */
-@import '@fontsource/hanken-grotesk/400.css';
-@import '@fontsource/hanken-grotesk/500.css';
-@import '@fontsource/hanken-grotesk/600.css';
-@import '@fontsource/hanken-grotesk/700.css';
+/* Hanken Grotesk — body, weights 400–700 */
+@import '@fontsource-variable/hanken-grotesk/wght.css';
 
-/* DM Sans — hero italic subline (300 italic) */
-@import '@fontsource/dm-sans/300-italic.css';
+/* DM Sans — hero italic subline only. Single weight, and only the Latin subsets
+ * Slovak needs; the full 300-italic.css also ships Cyrillic/Vietnamese faces. */
+@import '@fontsource/dm-sans/latin-300-italic.css';
+@import '@fontsource/dm-sans/latin-ext-300-italic.css';

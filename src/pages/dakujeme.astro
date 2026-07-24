@@ -15,11 +15,24 @@ const description = 'Vaša správa bola úspešne odoslaná. Ozveme sa vám do 4
     <section class="thankyou-hero">
       <div class="container">
         <div class="thankyou-card">
-          <div class="thankyou-icon">
-            <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-              <polyline points="22 4 12 14.01 9 11.01"/>
+          <div class="ty-send" aria-hidden="true">
+            <svg class="ty-send-svg" viewBox="0 0 220 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="tyTrailGrad" x1="0" y1="1" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#e5ad20" stop-opacity="0"></stop>
+                  <stop offset="40%" stop-color="#e5ad20" stop-opacity="0.5"></stop>
+                  <stop offset="100%" stop-color="#e5ad20" stop-opacity="1"></stop>
+                </linearGradient>
+              </defs>
+              <path class="ty-trail" pathLength="100" d="M 14 100 C 58 96, 76 40, 116 54 C 152 67, 176 46, 206 16"></path>
+              <g class="ty-plane"><path d="M -10 -7 L 12 0 L -10 7 L -5.5 0 Z"></path></g>
             </svg>
+            <div class="ty-badge">
+              <span class="ty-badge-ring"></span>
+              <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                <polyline class="ty-check" pathLength="100" points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
           </div>
           <h1 class="thankyou-title">Ďakujeme za vašu správu!</h1>
           <p class="thankyou-text">Vaša správa bola úspešne odoslaná. Ozveme sa vám <strong>do 48 hodín</strong> s návrhom riešenia a orientačnou cenou.</p>
@@ -53,7 +66,7 @@ const description = 'Vaša správa bola úspešne odoslaná. Ozveme sa vám do 4
 
           <div class="thankyou-contact-section">
             <p class="label-bold thankyou-contact-eyebrow">Kontakt</p>
-            <h2 class="thankyou-contact-heading">Napíšte nám o&nbsp;vašom projekte</h2>
+            <h2 class="thankyou-contact-heading">Potrebujete nás skôr?</h2>
             <p class="thankyou-contact-desc">Kým sa ozveme, pokojne nám zavolajte alebo napíšte priamo.</p>
             <div class="thankyou-contact-items">
               <div class="thankyou-contact-item">

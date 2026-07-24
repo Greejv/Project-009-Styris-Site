@@ -88,7 +88,7 @@ const faqJsonLd = project.faq.length
 
     <section class="cs-showcase">
       <div class="container">
-        <div class="cs-showcase-img reveal">
+        <div class:list={['cs-showcase-img', 'reveal', hero.fit === 'render' && 'is-render']}>
           <Image
             src={hero.src}
             alt={hero.alt}
@@ -109,7 +109,7 @@ const faqJsonLd = project.faq.length
 
           <div class="cs-section reveal">
             <p class="label-bold">O projekte</p>
-            <h2>Čo z toho dostanete</h2>
+            <h2>Čo dostanete</h2>
             <p class="cs-lede">{project.description}</p>
           </div>
 

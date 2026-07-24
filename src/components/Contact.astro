@@ -18,7 +18,7 @@ const steps: Step[] = [
   // managers from injecting personal data into this free-text project field.
   { key: 'type', title: 'O aký projekt máte záujem?', hint: 'Napr. schodisko, brána, zábradlie, pergola…', placeholder: 'Schodisko na mieru', inputType: 'text', autocomplete: 'off', required: true },
   { key: 'message', title: 'Povedzte nám viac', hint: 'Rozmery, štýl, termín — čokoľvek nám pomôže pripraviť ponuku.', placeholder: 'Chcem interiérové schodisko z ocele a dubového dreva…', inputType: 'textarea', autocomplete: 'off', required: true },
-  { key: 'phone', title: 'Máte na seba telefón?', hint: 'Nepovinné — ale zrýchli to komunikáciu.', placeholder: '+421 ...', inputType: 'tel', autocomplete: 'tel', skippable: true, inputMode: 'tel' },
+  { key: 'phone', title: 'Necháte nám na seba číslo?', hint: 'Nepovinné — ale zrýchli to komunikáciu.', placeholder: '+421 ...', inputType: 'tel', autocomplete: 'tel', skippable: true, inputMode: 'tel' },
 ];
 ---
 
@@ -27,8 +27,8 @@ const steps: Step[] = [
     <div class="contact-inner">
       <div class="reveal">
         <p class="label-bold">Kontakt</p>
-        <h2 class="headline-lg">Napíšte nám o&nbsp;vašom projekte</h2>
-        <p class="contact-desc">Napíšte nám, čo potrebujete. Ozveme sa do 48 hodín s návrhom riešenia a orientačnou cenou.</p>
+        <h2 class="headline-lg">Nezáväzná cenová ponuka zdarma</h2>
+        <p class="contact-desc">Napíšte nám, čo potrebujete. Ozveme sa do 48 hodín s návrhom riešenia a cenou.</p>
         <div class="contact-info">
           <div class="contact-info-item">
             <div class="icon">
@@ -90,7 +90,7 @@ const steps: Step[] = [
                   {...(s.autocomplete === 'off' ? { 'data-1p-ignore': true, 'data-lpignore': 'true', 'data-form-type': 'other' } : {})}
                 />
               )}
-              <p class="stepper-error" data-error hidden>Prosím vyplňte toto pole.</p>
+              <p class="stepper-error" data-error hidden>Prosím, vyplňte toto pole.</p>
             </div>
           ))}
 

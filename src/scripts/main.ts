@@ -55,6 +55,18 @@ if (prefersReducedMotion || !('IntersectionObserver' in window)) {
   reveals.forEach((el) => observer.observe(el));
 }
 
+/* ── Run the looping process-path animation only while it is on screen ── */
+const processSection = document.querySelector<HTMLElement>('.process');
+if (processSection && 'IntersectionObserver' in window) {
+  const processObs = new IntersectionObserver(
+    (entries) => entries.forEach((e) => processSection.classList.toggle('is-onscreen', e.isIntersecting)),
+    { rootMargin: '0px 0px 100px 0px' },
+  );
+  processObs.observe(processSection);
+} else {
+  processSection?.classList.add('is-onscreen');
+}
+
 /* ── Active section highlight in nav (pill) ── */
 const navLinkEls = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-nav-link]'));
 const sectionMap = new Map<Element, HTMLAnchorElement>();

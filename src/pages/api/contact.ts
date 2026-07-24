@@ -125,7 +125,7 @@ body { margin: 0; padding: 0; width: 100% !important; min-width: 100% !important
 <!-- Subheading -->
 <tr>
 <td align="center" style="padding:12px 40px 0 40px;font-family:${FONT_STACK};font-size:16px;line-height:26px;color:${TEXT_SECONDARY};" class="mobile-pad">
-Vašu správu ohľadom <strong style="color:${TEXT_PRIMARY};">${safeType}</strong> sme úspešne prijali. Náš tím ju práve posudzuje a&nbsp;ozveme sa vám <strong style="color:${TEXT_PRIMARY};">do 48 hodín</strong>.
+Vašu správu ohľadom <strong style="color:${TEXT_PRIMARY};">${safeType}</strong> sme prijali. Prečítame si ju a&nbsp;ozveme sa vám <strong style="color:${TEXT_PRIMARY};">do 48 hodín</strong>.
 </td>
 </tr>
 
@@ -153,7 +153,7 @@ Vašu správu ohľadom <strong style="color:${TEXT_PRIMARY};">${safeType}</stron
 </table>
 </td>
 <td valign="top" style="padding:4px 0 20px 12px;">
-<p style="margin:0;font-family:${FONT_STACK};font-size:15px;font-weight:600;line-height:20px;color:${TEXT_PRIMARY};">Posúdime váš dopyt</p>
+<p style="margin:0;font-family:${FONT_STACK};font-size:15px;font-weight:600;line-height:20px;color:${TEXT_PRIMARY};">Preštudujeme váš dopyt</p>
 <p style="margin:4px 0 0 0;font-family:${FONT_STACK};font-size:14px;line-height:20px;color:${TEXT_SECONDARY};">Preštudujeme detaily vášho projektu.</p>
 </td>
 </tr>
@@ -169,7 +169,7 @@ Vašu správu ohľadom <strong style="color:${TEXT_PRIMARY};">${safeType}</stron
 </td>
 <td valign="top" style="padding:4px 0 20px 12px;">
 <p style="margin:0;font-family:${FONT_STACK};font-size:15px;font-weight:600;line-height:20px;color:${TEXT_PRIMARY};">Kontaktujeme vás</p>
-<p style="margin:4px 0 0 0;font-family:${FONT_STACK};font-size:14px;line-height:20px;color:${TEXT_SECONDARY};">Ozveme sa emailom alebo telefonicky.</p>
+<p style="margin:4px 0 0 0;font-family:${FONT_STACK};font-size:14px;line-height:20px;color:${TEXT_SECONDARY};">Ozveme sa e-mailom alebo telefonicky.</p>
 </td>
 </tr>
 
@@ -447,7 +447,7 @@ ${safeMessage}
 <tr>
 <td align="center" style="border-radius:10px;background-color:${GOLD};">
 <!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" style="height:48px;v-text-anchor:middle;width:220px;" arcsize="21%" fillcolor="${GOLD}" stroke="f"><center><![endif]-->
-<a href="${mailtoLink}" target="_blank" style="display:inline-block;padding:14px 32px;font-family:${FONT_STACK};font-size:15px;font-weight:600;color:${DARK};text-decoration:none;letter-spacing:-0.01em;">Odpovedať ${safeName} &rarr;</a>
+<a href="${mailtoLink}" target="_blank" style="display:inline-block;padding:14px 32px;font-family:${FONT_STACK};font-size:15px;font-weight:600;color:${DARK};text-decoration:none;letter-spacing:-0.01em;">Odpovedať na dopyt &rarr;</a>
 <!--[if mso]></center></v:roundrect><![endif]-->
 </td>
 </tr>
@@ -519,7 +519,7 @@ export const POST: APIRoute = async ({ request }) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email.trim())) {
       return new Response(
-        JSON.stringify({ error: 'Zadajte platnú emailovú adresu.' }),
+        JSON.stringify({ error: 'Zadajte platnú e-mailovú adresu.' }),
         { status: 400, headers: { 'Content-Type': 'application/json' } },
       );
     }

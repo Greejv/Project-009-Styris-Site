@@ -1,0 +1,51 @@
+---
+import { Image } from 'astro:assets';
+import { vizualizacia3d } from '../data/projectImages';
+
+const points = [
+  'Uvidíte presné proporcie a rozmery ešte pred výrobou',
+  'Detaily doladíme, kým je to len model — nie hotový kus',
+  'Žiadne prekvapenia pri montáži',
+];
+---
+
+<section class="viz section-dark" id="vizualizacia">
+  <div class="container">
+    <div class="viz-inner">
+      <div class="viz-copy reveal">
+        <p class="label-bold">3D vizualizácia</p>
+        <h2 class="headline-lg">Uvidíte to skôr, než to vyrobíme</h2>
+        <p class="viz-desc">
+          Po odsúhlasení ceny pripravíme 3D model vášho výrobku. Presne uvidíte tvar aj proporcie
+          a doladíme detaily ešte pred tým, než rozrežeme prvý kus ocele.
+        </p>
+        <ul class="viz-points">
+          {points.map((p) => (
+            <li>
+              <span class="viz-check">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </span>
+              <span>{p}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <figure class="viz-figure reveal">
+        <div class="viz-frame">
+          <Image
+            src={vizualizacia3d}
+            alt="3D vizualizácia oceľovej plošiny so schodiskom, zábradlím a roštovými stupňami"
+            width={1000}
+            height={Math.round((1000 * vizualizacia3d.height) / vizualizacia3d.width)}
+            widths={[500, 750, 1000]}
+            sizes="(max-width: 900px) 100vw, 50vw"
+            loading="lazy"
+          />
+          <span class="viz-tag">3D model</span>
+        </div>
+        <figcaption>Oceľová plošina so schodiskom — model, ktorý zákazník videl pred výrobou.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>

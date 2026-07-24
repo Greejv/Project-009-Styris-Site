@@ -18,6 +18,9 @@ export default defineConfig({
     responsiveStyles: true,
   },
   prefetch: {
-    prefetchAll: false,
+    // Warm internal pages on hover/focus so navigation feels instant, without
+    // the bandwidth cost of prefetching everything on load.
+    prefetchAll: true,
+    defaultStrategy: 'hover',
   },
 });

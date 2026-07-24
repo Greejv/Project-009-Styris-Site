@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import imgLeft from '../assets/products/biele_schody_1.webp';
+import imgLeft from '../assets/products/plech_schody_hero.webp';
 import imgRight from '../assets/products/Biele_Zabradlie_1.webp';
 ---
 
@@ -9,14 +9,14 @@ import imgRight from '../assets/products/Biele_Zabradlie_1.webp';
     <div class="hero-split-img">
       <Image
         src={imgLeft}
-        alt="Ručne vyrobené interiérové kovové schodisko na mieru"
+        alt="Čierne oceľové samonosné schodisko s centrálnou schodnicou"
         width={1280}
         height={Math.round((1280 * imgLeft.height) / imgLeft.width)}
         widths={[640, 960, 1280]}
         sizes="(max-width: 900px) 100vw, 50vw"
         loading="eager"
         fetchpriority="high"
-        style="object-position: center 30%;"
+        style="object-position: center center;"
       />
     </div>
     <div class="hero-split-img">
@@ -28,7 +28,6 @@ import imgRight from '../assets/products/Biele_Zabradlie_1.webp';
         widths={[640, 960, 1280]}
         sizes="(max-width: 900px) 100vw, 50vw"
         loading="eager"
-        fetchpriority="high"
         style="object-position: center 40%;"
       />
     </div>
@@ -37,10 +36,10 @@ import imgRight from '../assets/products/Biele_Zabradlie_1.webp';
   <div class="hero-fade"></div>
   <div class="hero-glass">
     <h1 class="hero-title">
-      <span class="line-bold">Kovovýroba na mieru.</span>
-      <span class="line-light">Schody, brány a zábradlia bez kompromisov.</span>
+      <span class="line-bold">Kovovýroba</span>
+      <span class="line-light">na mieru.</span>
     </h1>
-    <p class="hero-desc">Navrhneme, vyrobíme a osadíme. Oceľ, nerez aj hliník — do interiéru aj exteriéru. Vlastná dielňa, žiadne medzičlánky.</p>
+    <p class="hero-desc">Navrhneme, vyrobíme a osadíme. Oceľ, nerez aj hliník — do interiéru aj exteriéru. Bez zbytočných komplikácií.</p>
     <div class="hero-cta-row">
       <a href="#contact" class="hero-glow-btn">
         <span style="color: #ffffff">Nezáväzná cenová ponuka</span>

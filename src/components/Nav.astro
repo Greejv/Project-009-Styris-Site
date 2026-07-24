@@ -12,10 +12,10 @@ const homeAnchor = (hash: string) => (isHome ? `#${hash}` : `/#${hash}`);
 
 const links = [
   { label: 'Domov', href: isHome ? '#hero' : '/', section: 'hero' },
-  { label: 'Služby', href: homeAnchor('gallery'), section: 'gallery' },
+  { label: 'Realizácie', href: homeAnchor('gallery'), section: 'gallery' },
   { label: 'Naše práce', href: '/prace', section: 'prace', isPage: true },
   { label: 'Proces', href: homeAnchor('process'), section: 'process' },
-  { label: 'O nás', href: homeAnchor('quality'), section: 'quality' },
+  { label: 'Prečo my', href: homeAnchor('quality'), section: 'quality' },
   { label: 'Kontakt', href: '/kontakt', section: 'contact', isPage: true },
 ];
 
@@ -48,7 +48,7 @@ const isPraceActive = pathname === '/prace' || pathname.startsWith('/prace/');
     </div>
     <div class="nav-cta">
       <a href="/kontakt" class="btn btn-primary nav-cta-btn">
-        <span>Požiadať o ponuku</span>
+        <span>Cenová ponuka</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
       </a>
     </div>

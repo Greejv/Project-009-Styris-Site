@@ -11,8 +11,15 @@ import zabradlieBiele1 from '../assets/products/Biele_Zabradlie_1.webp';
 import zabradlieBiele2 from '../assets/products/Biele_Zabradlie_2.webp';
 import zabradlieFrancuz from '../assets/products/Sivé_Frencúzke_Zabradlie.webp';
 import pergola from '../assets/products/Pergola.webp';
+import vizualizacia3d from '../assets/products/3d-vizualizacia.webp';
+import vizualizacia3dWide from '../assets/products/3d-vizualizacia-wide.webp';
 
-export type ProjectImage = { src: ImageMetadata; alt: string };
+export type ProjectImage = {
+  src: ImageMetadata;
+  alt: string;
+  /** Renders in an uncropped 2:1 band instead of the default fixed-height photo band. */
+  fit?: 'render';
+};
 
 /** Card image used on the homepage services grid and the /prace index. */
 export const cardImage: Record<string, ProjectImage> = {
@@ -21,7 +28,7 @@ export const cardImage: Record<string, ProjectImage> = {
   'zabradlia-a-madla': { src: zabradlieFrancuz, alt: 'Sivé francúzske kovové zábradlie' },
   'pergoly-a-zastresenia': { src: pergola, alt: 'Kovová pergola so zastrešením terasy' },
   'kovove-doplnky': { src: branaZelena, alt: 'Zelená kovová bránička s dekoračným motívom' },
-  'priemyselne-konstrukcie': { src: schodyPlech1, alt: 'Priemyselné oceľové schodisko s plechovými stupňami' },
+  'priemyselne-konstrukcie': { src: vizualizacia3d, alt: '3D vizualizácia oceľovej plošiny so schodiskom a zábradlím' },
 };
 
 /** Larger hero showcase image on the case-study detail page. */
@@ -31,8 +38,15 @@ export const showcaseImage: Record<string, ProjectImage> = {
   'zabradlia-a-madla': { src: zabradlieBiele1, alt: 'Biele kovové zábradlie s minimalistickými výplňami' },
   'pergoly-a-zastresenia': { src: pergola, alt: 'Zastrešenie terasy — kovová pergola' },
   'kovove-doplnky': { src: branaZelena, alt: 'Zelená dekoračná kovová bránička na mieru' },
-  'priemyselne-konstrukcie': { src: schodyPlech2, alt: 'Priemyselné kovové schodisko z ocele' },
+  'priemyselne-konstrukcie': {
+    src: vizualizacia3dWide,
+    alt: '3D vizualizácia oceľovej plošiny so schodiskom — model pred výrobou',
+    fit: 'render',
+  },
 };
 
 /** Poster image used above the hero-adjacent video block. */
 export { schodyBiele1 as videoPoster };
+
+/** Render used by the 3D-visualisation section on the homepage. */
+export { vizualizacia3d };

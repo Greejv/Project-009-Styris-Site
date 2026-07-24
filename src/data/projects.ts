@@ -22,7 +22,7 @@ export const projects: Project[] = [
     title: 'Kovové brány & ploty',
     category: 'Vstupy a oplotenie',
     short:
-      'Vjezdové brány, chodníkové brány, oplotenie pozemku. Jednokrídlové, dvojkrídlové, posuvné — v akomkoľvek štýle.',
+      'Vjazdové brány, vstupné bránky, oplotenie pozemku. Jednokrídlové, dvojkrídlové, posuvné — v akomkoľvek štýle.',
     tagline: 'Vstup, ktorý reprezentuje váš dom',
     intro:
       'Ručne vyrábané kovové brány a oplotenie na mieru — od klasickej kutej estetiky po čistý moderný dizajn. Riešime celý proces od zamerania cez návrh až po montáž.',
@@ -40,11 +40,10 @@ export const projects: Project[] = [
       'Vjazdy k rodinným domom a vilám',
       'Oplotenie priemyselných areálov',
       'Reprezentatívne vstupy k firmám a hotelom',
-      'Obnovy a rekonštrukcie historických plotov',
     ],
     faq: [
       { q: 'Ako dlho trvá výroba brány?', a: 'Od zamerania po montáž zvyčajne 4–6 týždňov, v závislosti od zložitosti a povrchovej úpravy.' },
-      { q: 'Robíte aj montáž pohonu?', a: 'Áno, dodávame a inštalujeme pohony NICE vrátane elektroinštalácie a zaučenia.' },
+      { q: 'Robíte aj montáž pohonu?', a: 'Áno, dodávame a inštalujeme pohony NICE vrátane elektroinštalácie a zaškolenia.' },
       { q: 'Aká je záruka?', a: 'Nedávame papierovú záruku, ale staviame veci tak, aby prežili dom. Ak sa niečo pokazí našou chybou alebo chybou výroby, opravíme to zdarma.' },
     ],
     icon: '<rect x="3" y="3" width="7" height="18" rx="1"></rect><rect x="14" y="3" width="7" height="18" rx="1"></rect>',
@@ -60,7 +59,7 @@ export const projects: Project[] = [
     intro:
       'Priamočiare, točité alebo lomené schodiská z ocele — samostatne nosné, kombinované s drevom, sklom alebo pohľadovým betónom. Každý stupeň je navrhnutý s rezervou na nosnosť a s ohľadom na akustiku.',
     description:
-      'Pripravíme technický návrh a výrobné výkresy, aby ste presne vedeli, čo dostanete. Zvárané spoje sú brúsené do čistej kvality, konzoly a schodnice sú v celku, bez tolerancií, ktoré by na hotovom schodisku bolo vidieť. Pri kombinovaných schodiskách spolupracujeme s truhlármi a sklármi, aby ste mali jedného partnera pre celý projekt.',
+      'Pripravíme technický návrh a výrobné výkresy, aby ste presne vedeli, čo dostanete. Zvárané spoje brúsime dohladka, konzoly a schodnice sú v celku, bez tolerancií, ktoré by na hotovom schodisku bolo vidieť. Pri kombinovaných schodiskách spolupracujeme so stolármi a sklármi, aby ste mali jedného partnera pre celý projekt.',
     features: [
       'Technický návrh a výrobné výkresy',
       '3D vizualizácia po odsúhlasení ceny, ešte pred výrobou',
@@ -77,7 +76,10 @@ export const projects: Project[] = [
     ],
     faq: [
       { q: 'Viete zamerať aj u nás doma?', a: 'Áno, zameranie robíme laserom priamo na stavbe, aby výroba sedela na milimeter.' },
-      { q: 'Aký je rozdiel medzi zvarencom a šraubovaným schodiskom?', a: 'Zvarence sú tuhšie a bezúdržbové, šraubované sa dajú demontovať a upraviť.' },
+      {
+        q: 'Aký je rozdiel medzi zváraným a skrutkovaným schodiskom?',
+        a: 'Oba typy sú rovnako pevné a spoľahlivé — líšia sa len spôsobom montáže. Zvárané schodisko je jeden kompaktný celok, ktorý vyrobíme kompletne v dielni. Skrutkované skladáme z presne opracovaných dielov až na mieste, preto ho volíme pri ťažších, väčších a tvarovo zložitejších schodiskách, ktoré by sa v celku nedali doviezť ani osadiť. Skrutkované spoje navrhujeme na plné zaťaženie s rezervou, takže sa časom neuvoľnia — a výhodou navyše je, že sa dajú kedykoľvek rozobrať a upraviť.',
+      },
     ],
     icon: '<path d="M22 5L18 5L18 9L14 9L14 13L10 13L10 17L6 17L6 21L2 21"></path>',
     imageLabel: 'schodiská',
@@ -91,7 +93,7 @@ export const projects: Project[] = [
     intro:
       'Zábradlia sú miesto, kde najviac vidno, či remeselník vie, čo robí. Pracujeme s milimetrovou presnosťou, brúsime spoje, kotvíme do stavby cez chemické kotvy — aby madlo pod rukou vydržalo desaťročia.',
     description:
-      'Ponúkame celé spektrum od minimalistických sklo-nerez systémov cez klasické kované zábradlia až po interiérové kombinácie s masívnym dubom. Navrhujeme s ohľadom na bežné normy pre vodorovné zaťaženie a poctivo kotvíme do nosnej konštrukcie. Madlá sú brúsené aj kartáčované, optimálne pre uchopenie ruky.',
+      'Ponúkame celé spektrum od minimalistických sklo-nerez systémov cez klasické kované zábradlia až po interiérové kombinácie s masívnym dubom. Navrhujeme s ohľadom na bežné normy pre vodorovné zaťaženie a poctivo kotvíme do nosnej konštrukcie. Madlá sú brúsené aj kefované, tvarované tak, aby dobre padli do ruky.',
     features: [
       'Sklenené výplne z VSG bezpečnostného skla',
       'Nerez brúsený, leštený alebo čierny mat',
@@ -103,7 +105,7 @@ export const projects: Project[] = [
     useCases: [
       'Interiérové schodiská a mezanínové galérie',
       'Balkóny, francúzske okná a lodžie',
-      'Terasy a bazénové ochrany',
+      'Terasy a zábradlia okolo bazénov',
       'Verejné priestory — kaviarne, hotely, ordinácie',
     ],
     faq: [
@@ -117,7 +119,7 @@ export const projects: Project[] = [
     slug: 'pergoly-a-zastresenia',
     title: 'Pergoly & vonkajšie strechy',
     category: 'Exteriér',
-    short: 'Kovové pergoly a zastrešenia terás, ktoré vydržia každé počasie a krajšia každý dvor.',
+    short: 'Kovové pergoly a zastrešenia terás, ktoré vydržia každé počasie a skrášlia každý dvor.',
     tagline: 'Vonkajší priestor, ktorý funguje celý rok',
     intro:
       'Bioklimatické aj klasické pergoly s pevnou strechou z oceľových profilov, zinkované a farbené do RAL odtieňov. Konštruujeme ich tak, aby zvládli sneh aj vietor — a vyzerali čisto aj po desiatich rokoch.',
@@ -134,12 +136,12 @@ export const projects: Project[] = [
     useCases: [
       'Zastrešenie terasy pri rodinnom dome',
       'Vonkajšie sedenie pri reštauráciách',
-      'Prístrešky nad vjazdmi a autá',
-      'Záhradné pergoly s pnúcimi rastlinami',
+      'Prístrešky nad vjazdmi a autami',
+      'Záhradné pergoly s popínavými rastlinami',
     ],
     faq: [
       { q: 'Zvládne pergola sneh na východe?', a: 'Áno — pergoly navrhujeme s výraznou rezervou na snehové aj veterné zaťaženie pre naše podmienky.' },
-      { q: 'Musím riešiť stavebné povolenie?', a: 'Pri pergolách do 25 m² zvyčajne stačí ohláška, väčšie riešime individuálne s obcou.' },
+      { q: 'Musím riešiť stavebné povolenie?', a: 'Pri pergolách do 25 m² zvyčajne stačí ohlásenie stavby, väčšie riešime individuálne s obcou.' },
     ],
     icon: '<path d="M3 7h18"></path><path d="M3 7v14"></path><path d="M21 7v14"></path><path d="M6 3v4"></path><path d="M18 3v4"></path><path d="M8 7v14"></path><path d="M16 7v14"></path>',
     imageLabel: 'pergoly',
@@ -148,14 +150,14 @@ export const projects: Project[] = [
     slug: 'kovove-doplnky',
     title: 'Kovové doplnky na mieru',
     category: 'Detaily',
-    short: 'Poštové schránky, plotové stĺpiky, dekoračné prvky — ak to ide urobiť z ocele, urobíme to.',
+    short: 'Poštové schránky, plotové stĺpiky, dekoračné prvky — ak sa to dá vyrobiť z ocele, vyrobíme to.',
     tagline: 'Malé veci, ktoré robia veľký rozdiel',
     intro:
       'Poštové schránky, čísla domov, madlá dverí, konzoly, vešiaky, kovové kryty — vyrobíme jednorazový kus alebo malú sériu, ktorá zladí exteriér vášho domu do jedného rukopisu.',
     description:
       'Toto je kategória, ktorú nikto z veľkých výrobcov neponúka, lebo sa im to neoplatí. My áno — pretože veríme, že práve tieto detaily rozhodujú o tom, či dom pôsobí ako projekt alebo ako domov. Ak máte konkrétnu predstavu, prineste náčrt alebo fotku a my vám povieme, či to vieme urobiť.',
     features: [
-      'Poštové schránky s presvetleným menovkovým poľom',
+      'Poštové schránky s podsvietenou menovkou',
       'Domové čísla laserom rezané z 4 mm ocele',
       'Konzoly, držiaky a dekoračné prvky',
       'Kovové kryty klimatizácií, tepelných čerpadiel',
@@ -193,7 +195,7 @@ export const projects: Project[] = [
       'Antikorózne povrchové úpravy podľa prostredia',
       'Normy a certifikáciu doriešime na požiadanie cez partnerov',
     ],
-    materials: ['Konštrukčná oceľ S235 a S355', 'Nerez potravinársky', 'Žiarovo zinkovaná oceľ', 'Podlahové rošty'],
+    materials: ['Konštrukčná oceľ S235 a S355', 'Potravinárska nerez', 'Žiarovo zinkovaná oceľ', 'Podlahové rošty'],
     useCases: [
       'Obslužné plošiny pre výrobné linky',
       'Skladové medziposchodia',

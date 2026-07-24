@@ -86,6 +86,28 @@
     gtag('config', 'G-K5N68SRS99', { send_page_view: true });
   }
 
+  /* Third-party tags are the heaviest scripts on the page (gtag.js alone is ~90kB
+   * of parse+execute) and none of them need to run before first paint. Nothing is
+   * lost by waiting: gtag/fbq commands issued earlier sit in their queues and
+   * replay once the library arrives. Run at first idle, or sooner if the visitor
+   * interacts — whichever comes first — so tags never compete with the LCP image. */
+  function runWhenIdle(fn: () => void) {
+    let done = false;
+    const events = ['pointerdown', 'keydown', 'touchstart', 'scroll'];
+    const run = () => {
+      if (done) return;
+      done = true;
+      events.forEach((e) => window.removeEventListener(e, run));
+      fn();
+    };
+    events.forEach((e) => window.addEventListener(e, run, { passive: true }));
+    if ('requestIdleCallback' in window) {
+      (window as any).requestIdleCallback(run, { timeout: 4000 });
+    } else {
+      window.setTimeout(run, 2500);
+    }
+  }
+
   // ── Load Meta Pixel (only after consent granted) ──
   function loadMetaPixel() {
     if (metaPixelLoaded) return;
@@ -101,6 +123,12 @@
     'https://connect.facebook.net/en_US/fbevents.js');
     window.fbq('init', '1109649517577215');
     window.fbq('track', 'PageView');
+    // The pixel is deferred, so it can init after the thank-you page has rendered.
+    // This is the single place the Meta lead is sent; loadMetaPixel() is idempotent,
+    // so it fires exactly once whether we got here via idle load or via consent.
+    if (window.location.pathname === '/dakujeme') {
+      window.fbq('track', 'Lead', { content_name: 'contact_form_submission' });
+    }
   }
 
   // ── Load Vercel Analytics (only after consent granted) ──
@@ -134,11 +162,12 @@
     });
   }
 
-  /** Fire a conversion event if user landed on /dakujeme */
+  /** Queue the GA conversion if the user landed on /dakujeme.
+   *  Safe to call before gtag.js loads — commands replay from dataLayer.
+   *  The matching Meta lead is sent from loadMetaPixel(). */
   function trackThankYouConversion() {
     if (window.location.pathname === '/dakujeme') {
       gtag('event', 'generate_lead', { event_category: 'contact', event_label: 'form_submission' });
-      window.fbq?.('track', 'Lead', { content_name: 'contact_form_submission' });
     }
   }
 
@@ -204,16 +233,19 @@
     const banner = document.getElementById('cookie-consent');
     const stored = localStorage.getItem('cookie-consent');
 
-    // Always load GA (consent mode controls what it does)
-    loadGA();
+    // Always load GA (consent mode controls what it does) — off the critical path
+    runWhenIdle(loadGA);
     // Always bind event tracking (gtag queues events; consent mode controls storage)
     bindEventTracking();
 
     if (stored === 'accepted') {
-      // Consent already granted — load Meta Pixel & Vercel Analytics
-      loadMetaPixel();
-      loadVercelAnalytics();
+      // Consent already granted — load Meta Pixel & Vercel Analytics, also deferred.
+      // The conversion event is queued immediately so it survives a fast bounce.
       trackThankYouConversion();
+      runWhenIdle(() => {
+        loadMetaPixel();
+        loadVercelAnalytics();
+      });
       return;
     }
 
