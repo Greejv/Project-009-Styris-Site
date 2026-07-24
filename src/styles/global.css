@@ -250,7 +250,12 @@ a, button { -webkit-tap-highlight-color: transparent; }
 .hero-glow-btn:active { transform: translateY(0) scale(0.98); }
 .hero-trust { margin-top: 16px; font-size: 13px; font-weight: 700; color: var(--gold); letter-spacing: 0.01em; text-shadow: 0 1px 2px rgba(0,0,0,0.18); }
 .hero-glow-btn svg { width: 18px; height: 18px; }
-.hero-fade { position: absolute; bottom: 0; left: 0; right: 0; height: 220px; z-index: 5; background: linear-gradient(to bottom, transparent 0%, var(--dark) 100%); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); mask-image: linear-gradient(to bottom, transparent 0%, black 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 100%); pointer-events: none; }
+/* No backdrop-filter here on purpose. This strip overlaps the bottom of
+ * .hero-glass, and a blur stacked directly under another blur is the combination
+ * mobile GPUs (iOS Safari especially) drop — which killed the hero panel's glass.
+ * The blur was invisible anyway: the mask hides this layer everywhere except the
+ * bottom, where the gradient has already faded to the solid page background. */
+.hero-fade { position: absolute; bottom: 0; left: 0; right: 0; height: 220px; z-index: 5; background: linear-gradient(to bottom, transparent 0%, var(--dark) 100%); mask-image: linear-gradient(to bottom, transparent 0%, black 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 100%); pointer-events: none; }
 
 /* ══════════════ SOCIAL PROOF ══════════════ */
 .social-proof { padding: 72px 0; background: var(--dark); position: relative; }
@@ -605,7 +610,10 @@ a, button { -webkit-tap-highlight-color: transparent; }
 .footer-bottom a:hover { color: var(--white); }
 
 /* ══════════════ ANIMATIONS ══════════════ */
-.reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.42s cubic-bezier(0.22, 0.61, 0.36, 1), transform 0.42s cubic-bezier(0.22, 0.61, 0.36, 1); will-change: opacity, transform; }
+/* No will-change: it pinned a compositor layer on ~40 elements for the whole
+ * session, and it made every .reveal a backdrop root — so any glass surface
+ * inside one (e.g. .viz-tag) had nothing left to blur. */
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.42s cubic-bezier(0.22, 0.61, 0.36, 1), transform 0.42s cubic-bezier(0.22, 0.61, 0.36, 1); }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
 /* ══════════════ RESPONSIVE ══════════════ */
@@ -1205,4 +1213,51 @@ a, button { -webkit-tap-highlight-color: transparent; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
   .reveal { opacity: 1; transform: none; }
+}
+
+/* ══════════════ GLASS SURFACES — GUARANTEED FALLBACK ══════════════
+ * Every translucent panel is tuned assuming its backdrop gets blurred. When the
+ * blur is unavailable the same alpha reads as washed-out and, over a photo, the
+ * text loses contrast — so each surface gets a near-opaque background instead.
+ *
+ * backdrop-filter can be missing for reasons the page cannot detect: Android
+ * battery-saver and forced-colors modes drop it, low-end GPUs refuse large blur
+ * radii, and Firefox users can disable it. This block covers all of them, so the
+ * design degrades to "solid panel" and never to "unreadable".
+ *
+ * Kept last in the file so it wins over the base rules at equal specificity. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .hero-glass { background: rgba(255, 255, 255, 0.9); }
+  .hero-quiet-btn { background: rgba(255, 255, 255, 0.88); }
+  .hero-quiet-btn:hover { background: rgba(255, 255, 255, 0.96); }
+  .nav.scrolled { background: rgba(246, 246, 244, 0.97); }
+  .nav-links { background: rgba(255, 255, 255, 0.94); }
+  .nav-links.show { background: rgba(255, 255, 255, 0.985); }
+  .mobile-toggle { background: rgba(255, 255, 255, 0.96); }
+  .viz-tag { background: rgba(43, 51, 65, 0.85); }
+  .glass-tag { background: rgba(0, 0, 0, 0.55); }
+}
+
+/* Same treatment when the visitor asks the OS for less transparency. */
+@media (prefers-reduced-transparency: reduce) {
+  .hero-glass, .hero-quiet-btn, .nav.scrolled, .nav-links, .nav-links.show, .mobile-toggle, .viz-tag, .glass-tag {
+    backdrop-filter: none; -webkit-backdrop-filter: none;
+  }
+  .hero-glass { background: rgba(255, 255, 255, 0.94); }
+  .hero-quiet-btn { background: rgba(255, 255, 255, 0.9); }
+  .nav.scrolled { background: rgba(246, 246, 244, 0.98); }
+  .nav-links { background: rgba(255, 255, 255, 0.96); }
+  .nav-links.show { background: rgba(255, 255, 255, 0.99); }
+  .mobile-toggle { background: rgba(255, 255, 255, 0.97); }
+  .viz-tag { background: rgba(43, 51, 65, 0.9); }
+  .glass-tag { background: rgba(0, 0, 0, 0.6); }
+}
+
+/* Phones: same look, cheaper to composite. Blur cost scales with radius × DPR,
+ * and at 3x a 20-24px radius is where weaker GPUs start dropping the effect
+ * outright. These radii are visually near-identical but reliably rendered. */
+@media (max-width: 600px) {
+  .hero-glass { backdrop-filter: blur(16px) saturate(1.2); -webkit-backdrop-filter: blur(16px) saturate(1.2); }
+  .nav.scrolled { backdrop-filter: blur(18px) saturate(1.4); -webkit-backdrop-filter: blur(18px) saturate(1.4); }
+  .nav-links.show { backdrop-filter: blur(18px) saturate(1.3); -webkit-backdrop-filter: blur(18px) saturate(1.3); }
 }

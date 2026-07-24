@@ -15,6 +15,7 @@ const TEXT_MUTED = '#8a8d8e';
 const BORDER = '#e8e8e5';
 const LOGO_URL = 'https://styris.sk/logo.png';
 const SITE_URL = 'https://styris.sk';
+const DUET_URL = 'https://duetweb.online';
 
 function escapeHtml(str: string): string {
   return str
@@ -240,6 +241,11 @@ Košice · celé Slovensko &bull; <a href="tel:+421940896866" style="color:${TEX
 <tr>
 <td align="center" style="padding-top:4px;font-family:${FONT_STACK};font-size:13px;line-height:20px;">
 <a href="${SITE_URL}" style="color:${GOLD};text-decoration:none;">styris.sk</a>
+</td>
+</tr>
+<tr>
+<td align="center" style="padding-top:12px;font-family:${FONT_STACK};font-size:12px;line-height:18px;color:${TEXT_MUTED};">
+Dizajn a vývoj: <a href="${DUET_URL}" target="_blank" style="color:${TEXT_SECONDARY};text-decoration:none;font-weight:600;">DUET WEB</a>
 </td>
 </tr>
 </table>
@@ -483,6 +489,11 @@ ${safeMessage}
 <a href="${SITE_URL}" style="color:${GOLD};text-decoration:none;">styris.sk</a>
 </td>
 </tr>
+<tr>
+<td align="center" style="padding-top:12px;font-family:${FONT_STACK};font-size:12px;line-height:18px;color:${TEXT_MUTED};">
+Dizajn a vývoj: <a href="${DUET_URL}" target="_blank" style="color:${TEXT_SECONDARY};text-decoration:none;font-weight:600;">DUET WEB</a>
+</td>
+</tr>
 </table>
 </td>
 </tr>
@@ -567,7 +578,7 @@ export const POST: APIRoute = async ({ request }) => {
         To: [{ Email: trimmedEmail, Name: trimmedName }],
         Subject: 'Ďakujeme za vašu správu — Styris',
         HTMLPart: userHtml,
-        TextPart: `Dobrý deň ${trimmedName},\n\nďakujeme za vašu správu ohľadom "${trimmedType}". Prijali sme ju a ozveme sa vám do 48 hodín s návrhom riešenia a orientačnou cenou.\n\nS pozdravom,\nTím Styris\ninfo@styris.sk | +421 940 896 866\nstyris.sk`,
+        TextPart: `Dobrý deň ${trimmedName},\n\nďakujeme za vašu správu ohľadom "${trimmedType}". Prijali sme ju a ozveme sa vám do 48 hodín s návrhom riešenia a orientačnou cenou.\n\nS pozdravom,\nTím Styris\ninfo@styris.sk | +421 940 896 866\nstyris.sk\n\n—\nDizajn a vývoj: DUET WEB — ${DUET_URL}`,
       },
       ...adminEmails.map((adminEmail: string) => ({
         From: { Email: fromEmail, Name: 'Styris — Kontaktný formulár' },
@@ -575,7 +586,7 @@ export const POST: APIRoute = async ({ request }) => {
         ReplyTo: { Email: trimmedEmail, Name: trimmedName },
         Subject: `Nový dopyt: ${trimmedType} — ${trimmedName}`,
         HTMLPart: adminHtml,
-        TextPart: `NOVÝ DOPYT\n\nMeno: ${trimmedName}\nEmail: ${trimmedEmail}\nTelefón: ${trimmedPhone || '—'}\nTyp projektu: ${trimmedType}\n\nSpráva:\n${trimmedMessage}\n\n—\nOdoslaná cez kontaktný formulár na styris.sk`,
+        TextPart: `NOVÝ DOPYT\n\nMeno: ${trimmedName}\nEmail: ${trimmedEmail}\nTelefón: ${trimmedPhone || '—'}\nTyp projektu: ${trimmedType}\n\nSpráva:\n${trimmedMessage}\n\n—\nOdoslaná cez kontaktný formulár na styris.sk\nDizajn a vývoj: DUET WEB — ${DUET_URL}`,
       })),
     ];
 
