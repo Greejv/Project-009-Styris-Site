@@ -101,10 +101,21 @@
       fn();
     };
     events.forEach((e) => window.addEventListener(e, run, { passive: true }));
-    if ('requestIdleCallback' in window) {
-      (window as any).requestIdleCallback(run, { timeout: 4000 });
+
+    const schedule = () => {
+      if ('requestIdleCallback' in window) {
+        (window as any).requestIdleCallback(run, { timeout: 2000 });
+      } else {
+        window.setTimeout(run, 1000);
+      }
+    };
+    // Hold until the load event so tag bytes never contend with the LCP image or
+    // fonts. The 3.5s floor keeps analytics honest if `load` is slow or stalls.
+    if (document.readyState === 'complete') {
+      schedule();
     } else {
-      window.setTimeout(run, 2500);
+      window.addEventListener('load', schedule, { once: true });
+      window.setTimeout(schedule, 3500);
     }
   }
 

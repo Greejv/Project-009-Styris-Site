@@ -9,7 +9,10 @@
 /* Hanken Grotesk — body, weights 400–700 */
 @import '@fontsource-variable/hanken-grotesk/wght.css';
 
-/* DM Sans — hero italic subline only. Single weight, and only the Latin subsets
- * Slovak needs; the full 300-italic.css also ships Cyrillic/Vietnamese faces. */
+/* DM Sans — used by exactly one element, the hero subline (.hero-title .line-light).
+ * Latin subset only: that line reads "na mieru." and has no Latin-Extended-A
+ * characters, so latin-ext would be a wasted ~8kB download. If that subline ever
+ * gains Slovak diacritics (č ď ľ ň ŕ š ť ž), add:
+ *   @import '@fontsource/dm-sans/latin-ext-300-italic.css';
+ * otherwise those glyphs alone would fall back to the system sans. */
 @import '@fontsource/dm-sans/latin-300-italic.css';
-@import '@fontsource/dm-sans/latin-ext-300-italic.css';
