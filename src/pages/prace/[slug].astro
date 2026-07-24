@@ -17,10 +17,12 @@ const { project } = Astro.props;
 const related = projects.filter((p) => p.slug !== project.slug).slice(0, 3);
 const hero = showcaseImage[project.slug];
 
-const title = `${project.title} — prípadová štúdia | Styris`;
-// Meta descriptions get truncated around 160 chars; lead with the tagline so the
-// useful half always survives.
-const description = `${project.tagline}. ${project.intro}`;
+// Search-facing copy is authored per project, not derived from the UI label —
+// "Kovové brány & ploty — prípadová štúdia" spent the whole title on words
+// nobody searches for, and never contained the phrase "brány na mieru".
+const title = project.seoTitle;
+const description = project.seoDescription;
+const heading = project.h1 ?? project.title;
 
 const canonical = absoluteUrl(`/prace/${project.slug}`);
 
@@ -28,8 +30,9 @@ const canonical = absoluteUrl(`/prace/${project.slug}`);
 const serviceSchema = {
   '@type': 'Service',
   '@id': `${canonical}#service`,
-  name: project.title,
-  serviceType: project.title,
+  name: heading,
+  alternateName: project.title,
+  serviceType: heading,
   category: project.category,
   description: project.intro,
   url: canonical,
@@ -97,7 +100,7 @@ const schema = faqSchema ? [serviceSchema, faqSchema] : [serviceSchema];
         </nav>
 
         <p class="label-bold cs-eyebrow reveal">{project.category}</p>
-        <h1 class="cs-title reveal">{project.title}</h1>
+        <h1 class="cs-title reveal">{heading}</h1>
         <p class="cs-tagline reveal">{project.tagline}</p>
         <p class="cs-intro reveal">{project.intro}</p>
 
@@ -163,6 +166,25 @@ const schema = faqSchema ? [serviceSchema, faqSchema] : [serviceSchema];
               {project.useCases.map((u) => <li>{u}</li>)}
             </ul>
           </div>
+
+          {project.priceFactors && project.priceFactors.length > 0 && (
+            <div class="cs-section reveal">
+              <p class="label-bold">Cena</p>
+              <h2>Čo ovplyvňuje cenu</h2>
+              <p class="cs-lede">
+                Cenník nemáme — každý kus je iný a paušálna cena by aj tak nesedela. Toto sú veci,
+                ktoré cenu reálne hýbu, aby ste vedeli, na čo sa nás pýtať.
+              </p>
+              <dl class="cs-price">
+                {project.priceFactors.map((p) => (
+                  <div class="cs-price-item">
+                    <dt>{p.factor}</dt>
+                    <dd>{p.detail}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          )}
 
           {project.faq.length > 0 && (
             <div class="cs-section reveal">

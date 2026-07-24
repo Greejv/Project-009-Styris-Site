@@ -4,7 +4,10 @@ import imgLeft from '../assets/products/plech_schody_hero.webp';
 import imgRight from '../assets/products/Biele_Zabradlie_1.webp';
 ---
 
-<section class="hero" id="hero">
+<!-- Every <section> maps to an ARIA `region`. Unnamed, they all collapse into
+     identical anonymous nodes in the accessibility tree, which is what makes a
+     page unreadable to AI agents and screen readers alike. Each one is named. -->
+<section class="hero" id="hero" aria-labelledby="hero-title">
   <div class="hero-split">
     <div class="hero-split-img">
       <Image
@@ -35,7 +38,7 @@ import imgRight from '../assets/products/Biele_Zabradlie_1.webp';
   <div class="hero-overlay"></div>
   <div class="hero-fade"></div>
   <div class="hero-glass">
-    <h1 class="hero-title">
+    <h1 class="hero-title" id="hero-title">
       <span class="line-bold">Kovovýroba</span>
       <span class="line-light">na mieru.</span>
     </h1>

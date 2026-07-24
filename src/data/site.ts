@@ -26,7 +26,9 @@ export const SITE = {
   vatId: '53657420',
   locale: 'sk_SK',
   lang: 'sk',
-  titleDefault: 'Styris — Kovovýroba na mieru | Schody, brány, zábradlia, pergoly',
+  // Front-loads the service, not the brand: nobody searches "Styris" yet, and
+  // Google weights the opening words of a title most heavily.
+  titleDefault: 'Kovovýroba na mieru — schody, brány, zábradlia | Styris Košice',
   descriptionDefault:
     'Navrhneme, vyrobíme a osadíme kovové schody, brány, zábradlia a pergoly na mieru. Oceľ, nerez aj hliník — vlastná dielňa, Košice a celé Slovensko. Ozveme sa do 48 hodín.',
   /** One-paragraph entity definition. Short, factual, quotable — this is the

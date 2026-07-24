@@ -1100,6 +1100,12 @@ a, button { -webkit-tap-highlight-color: transparent; }
 .cs-uses { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .cs-uses li { padding: 14px 18px; background: rgba(26,28,28,0.03); border-left: 3px solid var(--gold); border-radius: 0 8px 8px 0; font-size: 15px; line-height: 1.5; }
 
+.cs-price { display: flex; flex-direction: column; gap: 2px; margin-top: 24px; }
+.cs-price-item { padding: 16px 0; border-top: 1px solid var(--dark-card-border); }
+.cs-price-item:last-child { border-bottom: 1px solid var(--dark-card-border); }
+.cs-price dt { font-family: var(--font-heading); font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+.cs-price dd { font-size: 15px; line-height: 1.6; color: var(--text-secondary); }
+
 .cs-faq { display: flex; flex-direction: column; gap: 12px; }
 .cs-faq-item { border: 1px solid var(--dark-card-border); border-radius: var(--radius-md); background: var(--dark-card); overflow: hidden; transition: border-color 0.2s ease; }
 .cs-faq-item[open] { border-color: rgba(254,193,44,0.35); }
