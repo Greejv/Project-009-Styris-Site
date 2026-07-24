@@ -9,7 +9,9 @@ const title = 'Ďakujeme za správu — Styris';
 const description = 'Vaša správa bola úspešne odoslaná. Ozveme sa vám do 48 hodín.';
 ---
 
-<Layout title={title} description={description}>
+<!-- Post-submit dead end: keep it out of the index (and out of sitemap.xml)
+     so it never surfaces as a search result for the brand. -->
+<Layout title={title} description={description} noindex>
   <Nav />
   <main class="thankyou-main">
     <section class="thankyou-hero">

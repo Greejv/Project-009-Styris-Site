@@ -1,4 +1,110 @@
+# robots.txt — https://styris.sk
+# Styris (Human Slovakia s. r. o.) — kovovýroba na mieru, Košice a celé Slovensko
+
+# ── Default: everything is crawlable ──
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /dakujeme
 
-Sitemap: https://styris.duetweb-dev.dev/sitemap-index.xml
+# ── Traditional search crawlers ──
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Seznam screenshot-generator
+Allow: /
+
+User-agent: SeznamBot
+Allow: /
+
+# ── AI / answer-engine crawlers ──
+# Explicitly allowed so Styris can be indexed, quoted and cited by generative
+# search. Each agent is listed by name: several ignore the wildcard group.
+
+# OpenAI — training, ChatGPT Search index, and user-triggered fetches
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Anthropic — Claude
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# Google Gemini / Vertex AI (separate from Googlebot — must be named)
+User-agent: Google-Extended
+Allow: /
+
+# Apple Intelligence / Siri
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Microsoft Copilot
+User-agent: Bingbot-Extended
+Allow: /
+
+# Meta AI
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Meta-ExternalFetcher
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+# Amazon (Alexa / Rufus)
+User-agent: Amazonbot
+Allow: /
+
+# DuckDuckGo AI assist
+User-agent: DuckAssistBot
+Allow: /
+
+# Common Crawl — the corpus most open models are trained from
+User-agent: CCBot
+Allow: /
+
+# Others
+User-agent: cohere-ai
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: MistralAI-User
+Allow: /
+
+User-agent: Diffbot
+Allow: /
+
+Sitemap: https://styris.sk/sitemap-index.xml

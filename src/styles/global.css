@@ -85,7 +85,6 @@ a, button { -webkit-tap-highlight-color: transparent; }
 .img-ph-light::after { color: rgba(0,0,0,0.2); }
 
 /* ── Glass tag ── */
-.glass-tag { position: absolute; bottom: 16px; left: 16px; padding: 8px 16px; background: rgba(0,0,0,0.1); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(0,0,0,0.12); border-radius: var(--radius-sm); color: var(--white); font-size: 13px; font-weight: 600; z-index: 2; }
 
 /* ══════════════ NAV ══════════════ */
 .nav {
@@ -378,7 +377,7 @@ a, button { -webkit-tap-highlight-color: transparent; }
 .quality-feature { display: flex; gap: 16px; align-items: flex-start; }
 .quality-feature .check { width: 28px; height: 28px; min-width: 28px; background: rgba(254,193,44,0.12); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
 .quality-feature .check svg { width: 14px; height: 14px; }
-.quality-feature h4 { font-family: var(--font-heading); font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+.quality-feature h3 { font-family: var(--font-heading); font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 4px; }
 .quality-feature p { font-size: 14px; line-height: 22px; color: var(--text-light-dim); }
 .quality-stat { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: var(--dark-card); border: 1px solid var(--dark-card-border); border-radius: var(--radius-lg); padding: 64px 48px; }
 .quality-stat .stat-number { font-family: var(--font-heading); font-size: 80px; font-weight: 800; letter-spacing: -0.04em; color: var(--gold); line-height: 1; margin-bottom: 16px; }
@@ -568,7 +567,7 @@ a, button { -webkit-tap-highlight-color: transparent; }
 }
 .stepper-done-icon svg { width: 30px; height: 30px; }
 @keyframes doneBurst { 0% { transform: scale(0.6); opacity: 0; } 60% { transform: scale(1.08); opacity: 1; } 100% { transform: scale(1); } }
-.stepper-done h3 { font-family: var(--font-heading); font-size: 26px; font-weight: 800; color: var(--white); margin-bottom: 8px; letter-spacing: -0.01em; }
+.stepper-done h2 { font-family: var(--font-heading); font-size: 26px; font-weight: 800; color: var(--white); margin-bottom: 8px; letter-spacing: -0.01em; }
 .stepper-done p { font-size: 15px; color: var(--text-light-dim); margin-bottom: 24px; }
 .stepper-done p strong { color: var(--white); font-weight: 700; }
 .stepper-done .btn { padding: 12px 22px; font-size: 14px; }
@@ -584,7 +583,7 @@ a, button { -webkit-tap-highlight-color: transparent; }
   .stepper-actions { margin-top: 24px; }
   .stepper-next { padding: 12px 22px; }
   .stepper-btn span { display: inline; }
-  .stepper-done h3 { font-size: 22px; }
+  .stepper-done h2 { font-size: 22px; }
   .stepper-tip { display: none; }
 }
 @media (max-width: 400px) {
@@ -600,7 +599,7 @@ a, button { -webkit-tap-highlight-color: transparent; }
 .footer-inner { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 56px; }
 .footer-brand .footer-logo { margin-bottom: 20px; }
 .footer-brand p { font-size: 14px; line-height: 22px; color: var(--text-light-dim); max-width: 260px; }
-.footer-col h4 { font-family: var(--font-heading); font-size: 14px; font-weight: 700; color: var(--white); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.06em; }
+.footer-col h2 { font-family: var(--font-heading); font-size: 14px; font-weight: 700; color: var(--white); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.06em; }
 .footer-col ul { display: flex; flex-direction: column; gap: 12px; }
 .footer-col a { font-size: 14px; color: var(--text-light-dim); transition: color 0.2s; }
 .footer-col a:hover { color: var(--white); }
@@ -1235,12 +1234,11 @@ a, button { -webkit-tap-highlight-color: transparent; }
   .nav-links.show { background: rgba(255, 255, 255, 0.985); }
   .mobile-toggle { background: rgba(255, 255, 255, 0.96); }
   .viz-tag { background: rgba(43, 51, 65, 0.85); }
-  .glass-tag { background: rgba(0, 0, 0, 0.55); }
 }
 
 /* Same treatment when the visitor asks the OS for less transparency. */
 @media (prefers-reduced-transparency: reduce) {
-  .hero-glass, .hero-quiet-btn, .nav.scrolled, .nav-links, .nav-links.show, .mobile-toggle, .viz-tag, .glass-tag {
+  .hero-glass, .hero-quiet-btn, .nav.scrolled, .nav-links, .nav-links.show, .mobile-toggle, .viz-tag {
     backdrop-filter: none; -webkit-backdrop-filter: none;
   }
   .hero-glass { background: rgba(255, 255, 255, 0.94); }
@@ -1250,7 +1248,6 @@ a, button { -webkit-tap-highlight-color: transparent; }
   .nav-links.show { background: rgba(255, 255, 255, 0.99); }
   .mobile-toggle { background: rgba(255, 255, 255, 0.97); }
   .viz-tag { background: rgba(43, 51, 65, 0.9); }
-  .glass-tag { background: rgba(0, 0, 0, 0.6); }
 }
 
 /* Phones: same look, cheaper to composite. Blur cost scales with radius × DPR,

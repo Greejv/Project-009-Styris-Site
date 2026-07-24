@@ -27,7 +27,9 @@ const steps: Step[] = [
     <div class="contact-inner">
       <div class="reveal">
         <p class="label-bold">Kontakt</p>
-        <h2 class="headline-lg">Nezáväzná cenová ponuka zdarma</h2>
+        <!-- This component is the whole of /kontakt, so it owns that page's h1.
+             The homepage renders its own copy of this section under its own h2. -->
+        <h1 class="headline-lg">Nezáväzná cenová ponuka zdarma</h1>
         <p class="contact-desc">Napíšte nám, čo potrebujete. Ozveme sa do 48 hodín s návrhom riešenia a cenou.</p>
         <div class="contact-info">
           <div class="contact-info-item">
@@ -98,7 +100,7 @@ const steps: Step[] = [
             <div class="stepper-done-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
             </div>
-            <h3>Ďakujeme!</h3>
+            <h2>Ďakujeme!</h2>
             <p>Vaša správa je na ceste. Ozveme sa vám <strong>do 48 hodín</strong>.</p>
             <button type="button" class="btn btn-outline" data-restart>Poslať ďalšiu správu</button>
           </div>

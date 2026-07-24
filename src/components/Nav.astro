@@ -22,7 +22,8 @@ const links = [
 const isPraceActive = pathname === '/prace' || pathname.startsWith('/prace/');
 ---
 
-<nav class="nav" id="nav" data-page={isHome ? 'home' : 'other'}>
+<header>
+<nav class="nav" id="nav" data-page={isHome ? 'home' : 'other'} aria-label="Hlavná navigácia">
   <div class="container nav-inner">
     <a href="/" class="nav-logo logo-plate" aria-label="Styris — domov">
       <Image
@@ -59,3 +60,4 @@ const isPraceActive = pathname === '/prace' || pathname.startsWith('/prace/');
     </button>
   </div>
 </nav>
+</header>

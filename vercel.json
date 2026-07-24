@@ -28,9 +28,15 @@
       ]
     },
     {
-      "source": "/favicon-(.*).png",
+      "source": "/(favicon(.*)\\.(png|ico|svg)|og-image\\.jpg|site\\.webmanifest)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=604800" }
+      ]
+    },
+    {
+      "source": "/(robots\\.txt|sitemap(.*)\\.xml)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600" }
       ]
     }
   ]

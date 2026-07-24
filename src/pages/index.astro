@@ -11,9 +11,68 @@ import Visualization from '../components/Visualization.astro';
 import Quality from '../components/Quality.astro';
 import Materials from '../components/Materials.astro';
 import Footer from '../components/Footer.astro';
+import { processSteps } from '../data/process';
+import { SITE, SERVICES, MATERIALS, ORG_ID, absoluteUrl } from '../data/site';
+
+const title = SITE.titleDefault;
+const description = SITE.descriptionDefault;
+
+/** The umbrella service, with every category hanging off it. Gives answer
+ *  engines one node that says what Styris does, for whom and where. */
+const serviceSchema = {
+  '@type': 'Service',
+  '@id': `${SITE.url}/#service`,
+  name: 'Kovovýroba na mieru',
+  serviceType: 'Kovovýroba na mieru',
+  description: SITE.entityDescription,
+  provider: { '@id': ORG_ID },
+  areaServed: [
+    { '@type': 'Country', name: 'Slovensko' },
+    { '@type': 'City', name: 'Košice' },
+  ],
+  category: MATERIALS.join(', '),
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Kategórie kovovýroby',
+    itemListElement: SERVICES.map((s, i) => ({
+      '@type': 'Offer',
+      position: i + 1,
+      itemOffered: {
+        '@type': 'Service',
+        name: s.name,
+        url: absoluteUrl(`/prace/${s.slug}`),
+        provider: { '@id': ORG_ID },
+      },
+    })),
+  },
+};
+
+/** How an order actually runs, start to finish — the kind of concrete,
+ *  step-by-step content generative search reaches for when asked
+ *  "ako prebieha objednávka kovovýroby". */
+const howToSchema = {
+  '@type': 'HowTo',
+  '@id': `${SITE.url}/#process`,
+  name: 'Ako prebieha zákazka v Styris — od nápadu po hotový kus',
+  description:
+    'Štyri kroky od prvého telefonátu po montáž: konzultácia, návrh a cenová ponuka do 48 hodín, ručná výroba vo vlastnej dielni a doprava s montážou.',
+  inLanguage: SITE.lang,
+  totalTime: 'P6W',
+  step: processSteps.map((s, i) => ({
+    '@type': 'HowToStep',
+    position: i + 1,
+    name: s.title,
+    text: s.text,
+    url: `${SITE.url}/#process`,
+  })),
+};
 ---
 
-<Layout>
+<Layout
+  title={title}
+  description={description}
+  schema={[serviceSchema, howToSchema]}
+>
   <Nav />
   <main>
     <Hero />

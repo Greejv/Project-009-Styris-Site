@@ -9,7 +9,11 @@ const title = 'Ochrana osobných údajov — Styris';
 const description = 'Ochrana osobných údajov spoločnosti Human Slovakia s. r. o. (Styris) v súlade s GDPR a zákonom č. 18/2018 Z. z.';
 ---
 
-<Layout title={title} description={description}>
+<Layout
+  title={title}
+  description={description}
+  breadcrumbs={[{ name: 'Ochrana osobných údajov', path: '/ochrana-sukromia' }]}
+>
   <Nav />
   <main class="privacy-main">
     <section class="privacy-hero">

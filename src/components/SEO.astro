@@ -1,0 +1,140 @@
+---
+/**
+ * Global SEO / GEO head component.
+ *
+ * Rendered once per page from Layout.astro. Owns: title, description, canonical,
+ * robots, favicons, OpenGraph, Twitter Cards and the Schema.org `@graph`.
+ *
+ * Pages stay declarative — they pass facts, not tags:
+ *
+ *   <Layout title="…" description="…" breadcrumbs={[{ name: 'Naše práce', path: '/prace' }]} />
+ */
+import {
+  SITE,
+  ORG_ID,
+  WEBSITE_ID,
+  absoluteUrl,
+  organizationSchema,
+  websiteSchema,
+  breadcrumbSchema,
+  type Crumb,
+} from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Site-relative path or absolute URL. Resolved to absolute before output. */
+  image?: string;
+  imageAlt?: string;
+  ogType?: 'website' | 'article' | 'profile';
+  /** Keep the page out of search indexes (thank-you pages, dead ends). */
+  noindex?: boolean;
+  /** Trail excluding "Domov" — that entry is prepended automatically. */
+  breadcrumbs?: Crumb[];
+  /** Extra Schema.org nodes merged into the page's @graph (Service, FAQPage…). */
+  schema?: Record<string, unknown>[];
+}
+
+const {
+  title = SITE.titleDefault,
+  description = SITE.descriptionDefault,
+  image = SITE.ogImage,
+  imageAlt = SITE.ogImageAlt,
+  ogType = 'website',
+  noindex = false,
+  breadcrumbs = [],
+  schema = [],
+} = Astro.props;
+
+// Astro.url.pathname keeps any trailing slash the request came in with; strip it
+// so /prace and /prace/ can never emit two competing canonicals.
+const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const canonical = absoluteUrl(path);
+const ogImage = absoluteUrl(image);
+
+/** One @graph beats several loose scripts: nodes cross-reference by @id, so the
+ *  parser resolves a single connected entity instead of guessing at duplicates. */
+const graph: Record<string, unknown>[] = [
+  organizationSchema(),
+  websiteSchema(),
+  {
+    '@type': 'WebPage',
+    '@id': `${canonical}#webpage`,
+    url: canonical,
+    name: title,
+    description,
+    inLanguage: SITE.lang,
+    isPartOf: { '@id': WEBSITE_ID },
+    about: { '@id': ORG_ID },
+    primaryImageOfPage: { '@type': 'ImageObject', url: ogImage },
+    ...(breadcrumbs.length
+      ? { breadcrumb: { '@id': `${canonical}#breadcrumb` } }
+      : {}),
+  },
+  ...(breadcrumbs.length ? [breadcrumbSchema(breadcrumbs)] : []),
+  ...schema,
+];
+
+const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="generator" content={Astro.generator} />
+<meta name="theme-color" content="#f6f6f4" />
+<meta name="color-scheme" content="light" />
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<link rel="alternate" hreflang="sk-SK" href={canonical} />
+<link rel="alternate" hreflang="x-default" href={canonical} />
+
+{
+  noindex ? (
+    <meta name="robots" content="noindex, follow" />
+  ) : (
+    <meta
+      name="robots"
+      content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+    />
+  )
+}
+
+<meta name="author" content={SITE.legalName} />
+<meta name="publisher" content={SITE.name} />
+<meta name="geo.region" content="SK-KI" />
+<meta name="geo.placename" content="Košice" />
+
+<!-- Favicons. Layered widest-support-first: ICO for legacy + crawler defaults,
+     SVG for modern browsers, PNG for Android/Chrome, apple-touch for iOS. -->
+<link rel="icon" href="/favicon.ico" sizes="32x32" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png" />
+<link rel="manifest" href="/site.webmanifest" />
+
+<!-- Open Graph. Absolute URLs only — scrapers do not resolve relative paths. -->
+<meta property="og:type" content={ogType} />
+<meta property="og:site_name" content={SITE.name} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:locale" content={SITE.locale} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:secure_url" content={ogImage} />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={imageAlt} />
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+<meta name="twitter:image:alt" content={imageAlt} />
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />

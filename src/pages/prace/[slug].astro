@@ -7,6 +7,7 @@ import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
 import { projects } from '../../data/projects';
 import { cardImage, showcaseImage } from '../../data/projectImages';
+import { SITE, ORG_ID, absoluteUrl } from '../../data/site';
 
 export function getStaticPaths() {
   return projects.map((p) => ({ params: { slug: p.slug }, props: { project: p } }));
@@ -17,34 +18,50 @@ const related = projects.filter((p) => p.slug !== project.slug).slice(0, 3);
 const hero = showcaseImage[project.slug];
 
 const title = `${project.title} — prípadová štúdia | Styris`;
+// Meta descriptions get truncated around 160 chars; lead with the tagline so the
+// useful half always survives.
 const description = `${project.tagline}. ${project.intro}`;
 
-const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://styris.sk').href;
+const canonical = absoluteUrl(`/prace/${project.slug}`);
 
-const jsonLd = {
-  '@context': 'https://schema.org',
+/** Service node for this category, tied back to the one Organization by @id. */
+const serviceSchema = {
   '@type': 'Service',
+  '@id': `${canonical}#service`,
+  name: project.title,
   serviceType: project.title,
-  provider: {
-    '@type': 'HomeAndConstructionBusiness',
-    name: 'Styris',
-    telephone: '+421940896866',
-    email: 'info@styris.sk',
-    address: {
-      '@type': 'PostalAddress',
-      addressLocality: 'Košice',
-      addressCountry: 'SK',
-    },
-  },
-  areaServed: 'Slovensko',
+  category: project.category,
   description: project.intro,
   url: canonical,
+  provider: { '@id': ORG_ID },
+  inLanguage: SITE.lang,
+  areaServed: [
+    { '@type': 'Country', name: 'Slovensko' },
+    { '@type': 'City', name: 'Košice' },
+  ],
+  material: project.materials,
+  /** `features` are what's actually included in the delivery — the closest
+   *  thing to a spec sheet an answer engine can quote. */
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: `Čo je súčasťou dodávky — ${project.title}`,
+    itemListElement: project.features.map((f, i) => ({
+      '@type': 'Offer',
+      position: i + 1,
+      itemOffered: { '@type': 'Service', name: f },
+    })),
+  },
+  audience: {
+    '@type': 'Audience',
+    name: project.useCases.join('; '),
+  },
 };
 
-const faqJsonLd = project.faq.length
+const faqSchema = project.faq.length
   ? {
-      '@context': 'https://schema.org',
       '@type': 'FAQPage',
+      '@id': `${canonical}#faq`,
+      inLanguage: SITE.lang,
       mainEntity: project.faq.map((f) => ({
         '@type': 'Question',
         name: f.q,
@@ -52,9 +69,20 @@ const faqJsonLd = project.faq.length
       })),
     }
   : null;
+
+const schema = faqSchema ? [serviceSchema, faqSchema] : [serviceSchema];
 ---
 
-<Layout title={title} description={description}>
+<Layout
+  title={title}
+  description={description}
+  ogType="article"
+  breadcrumbs={[
+    { name: 'Naše práce', path: '/prace' },
+    { name: project.title, path: `/prace/${project.slug}` },
+  ]}
+  schema={schema}
+>
   <Nav />
   <main class="cs-main">
 
@@ -214,9 +242,6 @@ const faqJsonLd = project.faq.length
   </main>
   <Footer />
 </Layout>
-
-<script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
-{faqJsonLd && <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)}></script>}
 
 <script>
   import '../../scripts/main.ts';

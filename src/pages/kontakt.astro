@@ -5,13 +5,39 @@ import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
+import { SITE, ORG_ID, postalAddress, absoluteUrl } from '../data/site';
 
 const title = 'Kontakt — napíšte nám o vašom projekte | Styris';
 const description =
   'Napíšte nám o vašom projekte na mieru — schody, brány, zábradlia, pergoly. Ozveme sa do 48 hodín s návrhom riešenia a orientačnou cenou.';
+
+/** ContactPage carrying the full NAP block. This is the page Google and answer
+ *  engines look to when asked how to reach the business. */
+const contactSchema = {
+  '@type': 'ContactPage',
+  '@id': `${absoluteUrl('/kontakt')}#contactpage`,
+  name: title,
+  description,
+  inLanguage: SITE.lang,
+  about: { '@id': ORG_ID },
+  mainEntity: {
+    '@id': ORG_ID,
+    '@type': 'HomeAndConstructionBusiness',
+    name: SITE.name,
+    telephone: SITE.phone,
+    email: SITE.email,
+    address: postalAddress,
+    url: SITE.url,
+  },
+};
 ---
 
-<Layout title={title} description={description}>
+<Layout
+  title={title}
+  description={description}
+  breadcrumbs={[{ name: 'Kontakt', path: '/kontakt' }]}
+  schema={[contactSchema]}
+>
   <Nav />
   <main class="contact-main">
     <Contact />

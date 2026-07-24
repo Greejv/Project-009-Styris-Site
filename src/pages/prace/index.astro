@@ -7,13 +7,43 @@ import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
 import { projects } from '../../data/projects';
 import { cardImage, videoPoster } from '../../data/projectImages';
+import { SITE, ORG_ID, absoluteUrl } from '../../data/site';
 
 const title = 'Naše práce — realizované projekty | Styris';
 const description =
   'Prezrite si realizácie Styris: kovové schody, brány, zábradlia, pergoly, doplnky aj väčšie konštrukcie na mieru. Prípadové štúdie s detailmi.';
+
+/** An explicit ItemList of every case study. Lets a crawler enumerate the
+ *  portfolio without having to infer it from the markup. */
+const collectionSchema = {
+  '@type': 'CollectionPage',
+  '@id': `${absoluteUrl('/prace')}#collection`,
+  name: title,
+  description,
+  inLanguage: SITE.lang,
+  about: { '@id': ORG_ID },
+  mainEntity: {
+    '@type': 'ItemList',
+    name: 'Kategórie kovovýroby Styris',
+    numberOfItems: projects.length,
+    itemListOrder: 'https://schema.org/ItemListOrderAscending',
+    itemListElement: projects.map((p, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: p.title,
+      description: p.short,
+      url: absoluteUrl(`/prace/${p.slug}`),
+    })),
+  },
+};
 ---
 
-<Layout title={title} description={description}>
+<Layout
+  title={title}
+  description={description}
+  breadcrumbs={[{ name: 'Naše práce', path: '/prace' }]}
+  schema={[collectionSchema]}
+>
   <Nav />
   <main class="work-main">
     <section class="work-hero">
